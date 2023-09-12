@@ -1,0 +1,18 @@
+{
+  "name": "micel-bank",
+  "version": "1.0.0",
+  "description": "Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.",
+  "main": "index.js",
+  "scripts": {
+    "banco": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

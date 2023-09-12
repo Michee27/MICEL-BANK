@@ -8,12 +8,12 @@ let {
 
 const listaContas = (requisicao, resposta) => {
     const { senha_banco } = requisicao.query
-    const senhaCorreta = "Cubos123Bank"
+    const senhaCorreta = "MICEL123Bank"
 
     try {
         if (senha_banco === senhaCorreta) {
             resposta.status(200).json({
-                WELCOME: "BEM VINDO AO CUBOS BANK",
+                WELCOME: "BEM VINDO AO MICEL BANK",
                 banco,
                 QUANTIDADES: `${contas.length} contas encontradas`,
                 contas

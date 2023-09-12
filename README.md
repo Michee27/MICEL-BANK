@@ -32,3 +32,68 @@ Para usar este projeto, siga estas etapas:
 - [ ] Clone o seu repositório em sua máquina
 - [ ] Uma vez clonado em sua máquina faça a instalação do pacote express para bom funcionamento do projeto
 - [ ] Utilize a insomnia para testar as funções
+
+## Como testar
+
+### Listar contas bancárias
+#### `/contas?senha_banco=Cubos123Bank`
+
+Ao acesssar esse endpoint e usando a senha correta, devera imprimir na tela as contas cadastrados e ativos no nosso sistema. (Lembrando que os dados ficarão guardados em memórias)
+
+### Criar conta bancária
+#### `/contas`
+
+Esse endpoint serve para criar uma conta bancária, gerando um número único para identificação da conta (número da conta).
+
+O corpo (body) deverá receber um objeto com as seguintes propriedades (respeitando estes nomes):
+
+    -   nome
+    -   cpf
+    -   data_nascimento
+    -   telefone
+    -   email
+    -   senha
+
+#### Exemplo de uso
+
+```javascript
+{
+    "nome": "Michee",
+    "cpf": "00011122234",
+    "data_nascimento": "2021-03-15",
+    "telefone": "71999998888",
+    "email": "mic@dev.com",
+    "senha": "12345"
+}
+```
+
+### Atualizar usuário da conta bancária
+#### `/contas/:numeroConta/usuario`
+
+O corpo (body) deverá receber um objeto com as seguintes propriedades (respeitando estes nomes):
+
+O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
+
+    -   nome
+    -   cpf
+    -   data_nascimento
+    -   telefone
+    -   email
+    -   senha
+
+#### Exemplo de Requisição
+```javascript
+{
+    "nome": "Celestin",
+    "cpf": "99911122234",
+    "data_nascimento": "2021-03-15",
+    "telefone": "71999998888",
+    "email": "celetin@dev.com",
+    "senha": "12345"
+}
+
+### Excluir Conta
+####  `/contas/:numeroConta`
+
+A funcionalidade desse endpoint é excluir uma conta bancária existente recebendo sua identificação no url.
+

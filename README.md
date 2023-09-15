@@ -4,7 +4,7 @@ Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.
 
 ## Descrição
 
-Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso clientes um ambiente seguro, de uso fácil, e dinâmica onde possa controlar suas finanças desde a criação do banco,  e é destinado a ajudar as pessoas com ABC. Ele é desenvolvido em Linguagem de javascript.
+Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso clientes um ambiente seguro, de uso fácil, e dinâmica onde possa controlar suas finanças desde a criação do banco até a emissão de extrato das atividades. Ele é desenvolvido em Linguagem de javascript.
 
 Nosso permita que:
 
@@ -92,6 +92,7 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
     "email": "celetin@dev.com",
     "senha": "12345"
 }
+```
 
 ### Excluir Conta
 ####  `/contas/:numeroConta`

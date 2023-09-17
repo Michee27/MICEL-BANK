@@ -30,7 +30,7 @@ Para usar este projeto, siga estas etapas:
 
 - [ ] Faça o fork desse repositório para o seu GitHub
 - [ ] Clone o seu repositório em sua máquina
-- [ ] Uma vez clonado em sua máquina use 
+- [ ] Uma vez clonado em sua máquina, inicie o servidor usando:  
 ```javascript
 npm run banco
 ```

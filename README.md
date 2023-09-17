@@ -30,7 +30,10 @@ Para usar este projeto, siga estas etapas:
 
 - [ ] Faça o fork desse repositório para o seu GitHub
 - [ ] Clone o seu repositório em sua máquina
-- [ ] Uma vez clonado em sua máquina faça a instalação do pacote express para bom funcionamento do projeto
+- [ ] Uma vez clonado em sua máquina use 
+```javascript
+npm run banco
+```
 - [ ] Utilize a insomnia para testar as funções
 
 

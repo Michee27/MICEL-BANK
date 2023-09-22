@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+<meta charset="utf-8">
+
+<head>
+    <title>MICEL Bank</title>
+
+    <div class="header" id="header">
+        <div class="logo_header">
+            <img src="./imagens/banner.png" class="img_bank" alt="logo">
+            <img src="./imagens/banner2.png" class="img_bank" alt="logo">
+        </div>
+    </div>
+
+    <h1 class="titulo">Seja Bem-vindo ao MICEL Bank</h1>
+
+</head>
+
+<body>
+    <form>
+        <div class="form-fild">
+            <div><label>Email</label></div>
+            <input type="email" name="email" id="email" placeholder="seu@email.com" onchange="onChangeEmail()" />
+            <div class="error" id="email-required-error">Email é obrigatório</div>
+            <div class="error" id="email-invalid-error">Email é inválido</div>
+            <div class="form-fild">
+                <div><label>Senha</label></div>
+                <input type="password" name="password" id="password" placeholder="Senha"
+                    onchange="onChangePassword()" />
+                <div class="error" id="password-required-error">Senha é obrigatória</div>
+            </div>
+            <div>
+                <button type="button" class="clear" id="recover-password-button" disabled="true">Recuperar
+                    senha</button>
+            </div>
+            <div>
+                <button type="button" class="solid" id="login-button" disabled="true">Entrar</button>
+            </div>
+            <div>
+                <button type="button" class="outline">Registrar</button>
+            </div>
+        </div>
+    </form>
+
+    <body class="rodape">
+        <h2>Quem somos nos</h2>
+        <p>Bem-vindo ao Meu Bank, onde a sua segurança financeira é a nossa principal prioridade. <br>
+            Desde o nosso início, há [ano de fundação], temos nos dedicado a servir nossos clientes com integridade,
+            transparência e inovação. Somos mais do que apenas um banco; somos seu parceiro confiável na busca de seus
+            objetivos financeiros.</p>
+    </body>
+</body>
+
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="geral.css">
+
+<script src="validacoes_teste.js"></script>
+
+</html>

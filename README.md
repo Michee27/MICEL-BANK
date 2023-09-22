@@ -21,6 +21,7 @@ Nosso permita que:
 ## Status do Projeto
 
 Este projeto está atualmente em desenvolvimento ativo. Estamos constantemente trabalhando nele para torná-lo ainda melhor.
+Foi desenvolvido todo o escopo BackEnd, no momento esta sendo desenvolvido a parte FrontEnd para comunicar com a Back.
 
 ## Instalação
 

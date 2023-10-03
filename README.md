@@ -30,10 +30,10 @@ Para usar este projeto, siga estas etapas:
 1. Clone o repositório para sua máquina local usando o seguinte comando:
 
 - [ ] Faça o fork desse repositório para o seu GitHub
-- [ ] Clone o seu repositório em sua máquina
+- [ ] Clone o projeto em sua máquina
 - [ ] Uma vez clonado em sua máquina, inicie o servidor usando:  
 ```javascript
-npm run banco
+npm run dev
 ```
 - [ ] Utilize a insomnia para testar as funções
 

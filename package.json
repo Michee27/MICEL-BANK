@@ -4,7 +4,7 @@
   "description": "Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.",
   "main": "index.js",
   "scripts": {
-    "banco": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",

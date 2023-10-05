@@ -105,12 +105,12 @@ O corpo (body) deverá receber um objeto com as seguintes propriedades (respeita
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/66168312-0595-492b-916b-d630e2f7dab3)
 
 
-### Atualizar usuário da conta bancária
-#### `/contas/:numeroConta/usuario`
+### Atualizar usuário de uma conta
+
+Atualizar uma conta bancária com informações de um usuário. O endpoint `/contas/:numeroConta/usuario` serve para atualizar uma conta bancária, usando o mesmo número da identificação da conta (número da conta) e iniciando sempre com saldo zero. Acessando a insomnia com `http://localhost:3000/contas/:numeroConta/usuario`.
+Se os dados do CPF e do e-mail já estiverem sido cadastrados em outra conta, uma mensagem de erro será retornada.
 
 O corpo (body) deverá receber um objeto com as seguintes propriedades (respeitando estes nomes):
-
-O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
 
     -   nome
     -   cpf
@@ -119,32 +119,45 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
     -   email
     -   senha
 
-#### Exemplo de Requisição
-```javascript
-{
-    "nome": "Celestin",
-    "cpf": "99911122234",
-    "data_nascimento": "2021-03-15",
-    "telefone": "71999998888",
-    "email": "celetin@dev.com",
-    "senha": "12345"
-}
-```
+### Em caso de transação bem sucedida
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/67ad60e3-3eca-4a83-938e-81e798251c83)
+
+### Em caso de informar um usuário inexistente
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a678e314-6fae-473d-a4b1-8b38b3315b6f)
+
+
 
 ### Excluir Conta
-####  `/contas/:numeroConta`
+####  
 
-A funcionalidade desse endpoint é excluir uma conta bancária existente caso essa conta esteja sem saldo recebendo sua identificação no url.
+O endpoint `/contas/:numeroConta` tem por funcionalidade excluir uma conta bancária, desde que o número de conta informado pela URL seja existente e também a conta em questão esteja sem saldo. Acessando a insomnia com `http://localhost:3000//contas/:numeroConta`.
+
+### Em caso de transação bem sucedida
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/83f805e8-0938-40f8-a030-e317e231d9dd)
+
+
+### Em caso de informar um usuário inexistente
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/9a986c8c-4ea6-4f53-b18f-db67f260898f)
+
 
 ### Depositar
 #### `/transacoes/depositar`
 
-Esse endpoint serve para somar o valor do depósito ao saldo de uma conta válida e registrar essa transação.
-
+O endpoint `/transacoes/depositar` serve para realizar um depósito em uma determinada conta, que tem que ser informado pelo corpo (body), somando o valor do depósito ao saldo de uma conta válida e registrar essa transação.
 O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
 
     -   numero_conta
     -   valor
+
+** Todos os campos são obrigatório
+
+### Transação bem sucedida
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/3cdafaa3-fd4e-4baf-90c0-e2a809e2393c)
+
+
+### Em caso de informar um valor inválido
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6329dd91-218a-428d-823a-519d0bb0140a)
+
 
 #### Exemplo de Requisição
 ```javascript

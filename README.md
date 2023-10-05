@@ -85,7 +85,8 @@ Listar todas as contas cadastradas, incluindo todas as suas transações pela su
 
 ### Criar conta bancária
 
-Esse endpoint serve para criar uma conta bancária, gerando um número único para identificação da conta (número da conta) e iniciando com saldo zero.
+Criar uma conta bancária com informações de um usuário. O endpoint `/contas` serve para criar uma conta bancária, gerando um número único para identificação da conta (número da conta) e iniciando sempre com saldo zero. Acessando a insomnia com `http://localhost:3000/contas`.
+Se os dados do CPF e do e-mail já estiverem sido cadastrados em outra conta, uma mensagem de erro será retornada.
 
 O corpo (body) deverá receber um objeto com as seguintes propriedades (respeitando estes nomes):
 
@@ -95,19 +96,14 @@ O corpo (body) deverá receber um objeto com as seguintes propriedades (respeita
     -   telefone
     -   email
     -   senha
+** Todos os campos são obrigatório!!
 
-#### Exemplo de uso
+### Em caso de transação bem sucedida
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5cddea00-9926-4c8f-9ef1-bb309807a077)
 
-```javascript
-{
-    "nome": "Michee",
-    "cpf": "00011122234",
-    "data_nascimento": "2021-03-15",
-    "telefone": "71999998888",
-    "email": "mic@dev.com",
-    "senha": "12345"
-}
-```
+### Em caso de duplicação de usuário
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/66168312-0595-492b-916b-d630e2f7dab3)
+
 
 ### Atualizar usuário da conta bancária
 #### `/contas/:numeroConta/usuario`

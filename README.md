@@ -20,7 +20,17 @@ Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso cl
 
 ## Código-fonte
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a85c3b87-c9e8-45ec-abfa-304af174db14)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a85c3b87-c9e8-45ec-abfa-304af174db14) 
+
+`index.js`: O ponto de entrada do servidor Express.
+
+`banco.js`: Processar as solicitações do cliente, interagir com o `bancodedados` e retornar uma resposta adequada ao cliente.
+
+`intermediarios.js`: Processa e manipula as solicitações HTTP para verificação dos dados.
+
+`bancodedados.js`: Armazena os dados do banco e as funcionalidades relacionadas ao banco.
+
+ `roteador.js`: Define as rotas da API e seus controladores.
 
 
 ## Status do Projeto

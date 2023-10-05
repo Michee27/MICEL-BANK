@@ -149,7 +149,7 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
     -   numero_conta
     -   valor
 
-** Todos os campos são obrigatório
+** Todos os campos são obrigatórios
 
 ### Transação bem sucedida
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/3cdafaa3-fd4e-4baf-90c0-e2a809e2393c)
@@ -159,36 +159,24 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6329dd91-218a-428d-823a-519d0bb0140a)
 
 
-#### Exemplo de Requisição
-```javascript
-// /transacoes/depositar
-{
-	"numero_conta": "1",
-	"valor": 1900
-}
-```
-
-
 ### Sacar
 #### `/transacoes/sacar`
 
-Esse endpoint fará a realização de um saque de um valor em uma determinada conta bancária e registrar essa transação.
-
+O endpoint `/transacoes/sacar` fará a realização de um saque de um valor que deve ser informado pelo corpo (body) da requisção, junto com um valor válido e sua respectiva senha e registrar essa transação.
 O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
 
     -   numero_conta
     -   valor
     -   senha
 
-#### Exemplo de Requisição
-```javascript
-// POST /transacoes/sacar
-{
-	"numero_conta": "1",
-	"valor": 1900,
-    "senha": "123456"
-}
-```
+** Todos os campos são obrigatórios
+
+### Em caso de trancação bem sucedida
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/913a519a-2ac8-4c0a-b202-a27b47abe47d)
+
+### Em caso de informar uma senha diferente com o cadastrado da conta eem questão
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5d8229b8-1df7-4b04-80e9-5b293c0e280e)
+
 
 ### Tranferir
 #### `POST` `/transacoes/transferir`

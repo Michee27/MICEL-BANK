@@ -18,6 +18,11 @@ Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso cl
 -   Consultar saldo da conta bancária
 -   Emitir extrato bancário
 
+   ## Status do Projeto
+
+Este projeto está atualmente em desenvolvimento ativo. Estamos constantemente trabalhando nele para torná-lo ainda melhor.
+Foi desenvolvido todo o escopo BackEnd, no momento esta sendo desenvolvido a parte FrontEnd para comunicar com a Back.
+
 ## Código-fonte
 
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a85c3b87-c9e8-45ec-abfa-304af174db14) 
@@ -30,13 +35,27 @@ Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso cl
 
 `bancodedados.js`: Armazena os dados do banco e as funcionalidades relacionadas ao banco.
 
- `roteador.js`: Define as rotas da API e seus controladores.
+`roteador.js`: Define as rotas da API e seus controladores.
 
+## Tecnologias usadas
 
-## Status do Projeto
+### JavaScript:
+Linguagem de programação de alto nível amplamente utilizada para desenvolvimento web. Ela é conhecida por ser uma linguagem de script, o que significa que você pode escrever código JavaScript diretamente em páginas da web para torná-las interativas e dinâmicas.
 
-Este projeto está atualmente em desenvolvimento ativo. Estamos constantemente trabalhando nele para torná-lo ainda melhor.
-Foi desenvolvido todo o escopo BackEnd, no momento esta sendo desenvolvido a parte FrontEnd para comunicar com a Back.
+### Node.js:
+Ambiente de tempo de execução (runtime) de código aberto baseado na engine V8 do Google Chrome. Ele permite que os desenvolvedores utilizem JavaScript para criar aplicativos de servidor, o que é um desvio do uso tradicional do JavaScript no lado do cliente, que é executado nos navegadores.
+
+## Dependências:
+
+### date-fns: 
+Uma biblioteca JavaScript usada para trabalhar com datas e horários. Ela fornece funções úteis para análise, manipulação e formatação de datas. Abra o terminal ou prompt de comando, navegue até o diretório do seu projeto e execute o seguinte comando: `npm install date-fns`
+
+### express.js: 
+O framework web "Express.js", usado para criar aplicativos web e APIs em Node.js. É amplamente utilizado para criar servidores web e simplificar o desenvolvimento web em Node.js. Abra o terminal ou prompt de comando, navegue até o diretório do seu projeto e execute o seguinte comando: `npm install express`
+
+### nodemon: 
+Uma ferramenta de desenvolvimento que monitora alterações em arquivos no diretório do seu projeto e reinicia automaticamente o servidor sempre que há uma alteração. É frequentemente usado para desenvolvimento em Node.js para economizar tempo na reinicialização do servidor durante o desenvolvimento. As dependências são bibliotecas ou pacotes necessários para o funcionamento do seu aplicativo, enquanto as devDependencies são pacotes usados apenas durante o desenvolvimento, como no caso do nodemon, que ajuda a manter o servidor atualizado durante o desenvolvimento. Abra o terminal ou prompt de comando, navegue até o diretório do seu projeto e execute o seguinte comando: `npm install -D nodemon`.
+Após clonar este repositório, você pode instalar todas as dependências e devDependencies usando o comando: npm install
 
 ## Instalação
 
@@ -46,16 +65,24 @@ Para usar este projeto, siga estas etapas:
 
 - [ ] Faça o fork desse repositório para o seu GitHub
 - [ ] Clone o projeto em sua máquina
-- [ ] Uma vez clonado em sua máquina, inicie o servidor usando:  
+- [ ] Uma vez clonado em sua máquina, realize a instalação das dependências citadas acima e inicie o servidor usando:  
 ```javascript
 npm run dev
 ```
 - [ ] Utilize a insomnia para testar as funções
 
-
 ## Como testar
 
 ### Listar contas bancárias
+Listar todas as contas cadastradas, incluindo todas as suas transações pela sua URL: `/contas/:senha_banco` e os parâmetros informando a senha pela URL. Acessando a insomnia com `http://localhost:3000/contas?senha_banco=MICEL123Bank`. Se a senha estiver incorreta ou a conta informada não existir, uma mensagem de erro será retornada. 
+
+### Erros de transação
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/55930b4b-c93a-4a1d-ba30-ac584bede40d)
+
+### Transação bem sucedida
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/d120ca86-1c0b-4c20-a949-7195f035968c)
+
+
 #### `/contas?senha_banco=MICEL123Bank`
 
 Ao acesssar esse endpoint e usando a senha correta, devera imprimir na tela as contas cadastrados e ativos no nosso sistema. (Lembrando que os dados ficarão guardados em memórias)

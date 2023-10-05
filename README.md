@@ -6,7 +6,7 @@ Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.
 
 Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso clientes um ambiente seguro, de uso fácil, e dinâmica onde possa controlar suas finanças desde a criação do banco até a emissão de extrato das atividades. Ele é desenvolvido em Linguagem de javascript.
 
-Nosso permita que:
+## Funcionalidades:
 
 -   Criar conta bancária
 -   Listar contas bancárias
@@ -17,6 +17,11 @@ Nosso permita que:
 -   Transferir valores entre contas bancárias
 -   Consultar saldo da conta bancária
 -   Emitir extrato bancário
+
+## Código-fonte
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a85c3b87-c9e8-45ec-abfa-304af174db14)
+
 
 ## Status do Projeto
 

@@ -76,10 +76,12 @@ npm run dev
 ### Listar contas bancárias
 Listar todas as contas cadastradas, incluindo todas as suas transações pela sua URL: `/contas/:senha_banco` e os parâmetros informando a senha pela URL. Acessando a insomnia com `http://localhost:3000/contas?senha_banco=MICEL123Bank`. Se a senha estiver incorreta ou a conta informada não existir, uma mensagem de erro será retornada. 
 
-### Erros de transação
+### Erros de transação     :x:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/55930b4b-c93a-4a1d-ba30-ac584bede40d)
 
-### Transação bem sucedida
+### Transação bem sucedida   :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/d120ca86-1c0b-4c20-a949-7195f035968c)
 
 
@@ -98,10 +100,12 @@ O corpo (body) deverá receber um objeto com as seguintes propriedades (respeita
     -   senha
 ** Todos os campos são obrigatório!!
 
-### Em caso de transação bem sucedida
+### Em caso de transação bem sucedida     :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5cddea00-9926-4c8f-9ef1-bb309807a077)
 
-### Em caso de duplicação de usuário
+### Em caso de duplicação de usuário     :x:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/66168312-0595-492b-916b-d630e2f7dab3)
 
 
@@ -119,10 +123,12 @@ O corpo (body) deverá receber um objeto com as seguintes propriedades (respeita
     -   email
     -   senha
 
-### Em caso de transação bem sucedida
+### Em caso de transação bem sucedida      :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/67ad60e3-3eca-4a83-938e-81e798251c83)
 
-### Em caso de informar um usuário inexistente
+### Em caso de informar um usuário inexistente     :x:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a678e314-6fae-473d-a4b1-8b38b3315b6f)
 
 
@@ -132,18 +138,20 @@ O corpo (body) deverá receber um objeto com as seguintes propriedades (respeita
 
 O endpoint `/contas/:numeroConta` tem por funcionalidade excluir uma conta bancária, desde que o número de conta informado pela URL seja existente e também a conta em questão esteja sem saldo. Acessando a insomnia com `http://localhost:3000//contas/:numeroConta`.
 
-### Em caso de transação bem sucedida
+### Em caso de transação bem sucedida     :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/83f805e8-0938-40f8-a030-e317e231d9dd)
 
 
-### Em caso de informar um usuário inexistente
+### Em caso de informar um usuário inexistente     :x:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/9a986c8c-4ea6-4f53-b18f-db67f260898f)
 
 
 ### Depositar
 #### `/transacoes/depositar`
 
-O endpoint `/transacoes/depositar` serve para realizar um depósito em uma determinada conta, que tem que ser informado pelo corpo (body), somando o valor do depósito ao saldo de uma conta válida e registrar essa transação.
+O endpoint `/transacoes/depositar` serve para realizar um depósito em uma determinada conta, que tem que ser informado pelo corpo (body), somando o valor do depósito ao saldo de uma conta válida e registrar essa transação. Acessando a insomnia com `http://localhost:3000/transacoes/depositar`.
 O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
 
     -   numero_conta
@@ -151,18 +159,19 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
 
 ** Todos os campos são obrigatórios
 
-### Transação bem sucedida
+### Transação bem sucedida     :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/3cdafaa3-fd4e-4baf-90c0-e2a809e2393c)
 
 
-### Em caso de informar um valor inválido
+### Em caso de informar um valor inválido     :x:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6329dd91-218a-428d-823a-519d0bb0140a)
 
 
 ### Sacar
-#### `/transacoes/sacar`
 
-O endpoint `/transacoes/sacar` fará a realização de um saque de um valor que deve ser informado pelo corpo (body) da requisção, junto com um valor válido e sua respectiva senha e registrar essa transação.
+O endpoint `/transacoes/sacar` fará a realização de um saque de um valor que deve ser informado pelo corpo (body) da requisção, junto com um valor válido e sua respectiva senha e registrar essa transação.  Acessando a insomnia com `http://localhost:3000/transacoes/sacar`.
 O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
 
     -   numero_conta
@@ -171,18 +180,18 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
 
 ** Todos os campos são obrigatórios
 
-### Em caso de trancação bem sucedida
+### Em caso de trancação bem sucedida     :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/913a519a-2ac8-4c0a-b202-a27b47abe47d)
 
-### Em caso de informar uma senha diferente com o cadastrado da conta eem questão
+### Em caso de informar uma senha diferente com o cadastrado da conta eem questão     :x:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5d8229b8-1df7-4b04-80e9-5b293c0e280e)
 
 
 ### Tranferir
-#### `POST` `/transacoes/transferir`
 
-Esse endpoint irá permitir a transferência de recursos (dinheiro) de uma conta bancária para outra e registrar essa transação.
-
+O endpoint `/transacoes/transferir` irá permitir a transferência de recursos (dinheiro) de uma conta bancária para outra e registrar essa transação. Acessando a insomnia com `http://localhost:3000/transacoes/trasnferir`.
 O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
 
     -   numero_conta_origem
@@ -190,34 +199,44 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
     -   valor
     -   senha
 
-#### Exemplo de Requisição
-```javascript
-// POST /transacoes/transferir
-{
-	"numero_conta_origem": "1",
-	"numero_conta_destino": "2",
-	"valor": 200,
-	"senha": "123456"
-}
-```
+** Todos os campos são obrigatórios
+
+### Em caso de trancação bem sucedida     :heavy_check_mark:
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/903cc066-a1cf-4702-a751-4118586ddad4)
+
+
+### Informando a senha da conta de origem errado     :x:
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/bb7a7b9f-ce50-4157-a127-00619f1bc1cd)
+
 
 ### Saldo
-#### `/contas/saldo`
 
-Esse endpoint irá retornar o saldo de uma conta bancária passado como argumento no url número da conta e senha da respectica conta.
+O endpoint `/contas/saldo` irá retornar o saldo de uma conta bancária passado como argumento no url número da conta e senha da respectica conta. Acessando a insomnia com `http://localhost:3000/contas/saldo?numero_conta=1&senha=12345`.
 
-#### Exemplo de Requisição
-```javascript
-// POST /transacoes/transferir
-{
-	/contas/saldo?numero_conta=123&senha=123
-}
-```
+### Em caso de trancação bem sucedida     :heavy_check_mark:
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/ca0862d5-2b12-4912-8263-2711c385190b)
+
+### Informando a conta errada     :x:
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6592b9af-77dd-4f1c-82bd-b24a97815ea9)
+
 
 ### Extrato
-#### `/contas/extrato`
+#### 
 
-Esse endpoint irá listar as transações realizadas de uma conta específica, passado como argumento no url número da conta e senha da respectica conta.
+O endpoint `/contas/extrato` irá listar as transações realizadas de uma conta específica, passado como argumento no url número da conta e senha da respectica conta. Acessando a insomnia com `http://localhost:3000/contas/extrato?numero_conta=1&senha=12345`.
+
+### Em caso de trancação bem sucedida     :heavy_check_mark:
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/4e7c3912-f6f0-4d33-9988-a1edca22b66d)
+
+### Informando a senha errada     :x:
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/c95e3c33-d674-4dc1-aee0-8c60ef4d47ee)
+
 
 #### Exemplo de Requisição
 ```javascript

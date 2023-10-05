@@ -238,10 +238,8 @@ O endpoint `/contas/extrato` irá listar as transações realizadas de uma conta
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/c95e3c33-d674-4dc1-aee0-8c60ef4d47ee)
 
 
-#### Exemplo de Requisição
-```javascript
-// POST /transacoes/transferir
-{
-	/contas/extrato?numero_conta=123&senha=123
-}
-```
+## Ideias
+
+Este projeto ainda está em desenvolvimento para fins de melhoria constante e aceitamos sugestões de melhoria. Fique a vontade para entrar em contato conosco
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/micheecelestin/)
+[![whatsaap](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/5547997768422)

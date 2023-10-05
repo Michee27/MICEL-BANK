@@ -83,12 +83,7 @@ Listar todas as contas cadastradas, incluindo todas as suas transações pela su
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/d120ca86-1c0b-4c20-a949-7195f035968c)
 
 
-#### `/contas?senha_banco=MICEL123Bank`
-
-Ao acesssar esse endpoint e usando a senha correta, devera imprimir na tela as contas cadastrados e ativos no nosso sistema. (Lembrando que os dados ficarão guardados em memórias)
-
 ### Criar conta bancária
-#### `/contas`
 
 Esse endpoint serve para criar uma conta bancária, gerando um número único para identificação da conta (número da conta) e iniciando com saldo zero.
 

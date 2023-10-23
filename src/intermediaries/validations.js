@@ -1,10 +1,3 @@
-let {
-    banco,
-    contas,
-    saques,
-    depositos,
-    transferencias
-} = require("../bancodedados")
 
 const informacoes = (requisicao, resposta, next) => {
     const { nome, cpf, data_nascimento, telefone, email, senha } = requisicao.body

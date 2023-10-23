@@ -8,12 +8,13 @@ const {
     sacarDaConta,
     transferir,
     conferirSaldo,
-    extratoCompleto } = require("./controladores/banco");
+    extratoCompleto,
+    welcomePage } = require("./controllers/banco");
 
-const { informacoes, validarContas, verificacao } = require("./controladores/intermediarios")
+const { informacoes, validarContas, verificacao } = require("./intermediaries/validations")
 const rotas = express()
 
-rotas.get("/contas", listaContas)
+rotas.get("/", welcomePage)
 rotas.post("/contas", informacoes, validarContas, criarConta)
 rotas.put("/contas/:numeroConta/usuario", informacoes, validarContas, atualizarConta)
 rotas.delete("/contas/:numeroConta", excluirConta)

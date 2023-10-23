@@ -1,10 +1,13 @@
-let {
-    banco,
-    contas,
-    saques,
-    depositos,
-    transferencias
-} = require("../bancodedados")
+const knex = require("knex")
+
+const welcomePage = (request, answer) => {
+    return answer.status(200).json({
+        WELCOME: "WELCOME TO MICEL BANK",
+        SIGN_UP: "CLICK HERE",
+        SIGN_IN: "CLICK HERE"
+    })
+}
+
 
 const listaContas = (requisicao, resposta) => {
     const { senha_banco } = requisicao.query
@@ -332,5 +335,6 @@ module.exports = {
     sacarDaConta,
     transferir,
     conferirSaldo,
-    extratoCompleto
+    extratoCompleto,
+    welcomePage
 }

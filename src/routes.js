@@ -10,23 +10,24 @@ const {
     conferirSaldo,
     extratoCompleto,
     welcomePage
-} = require("./controllers/bank");
+} = require("./controllers/user");
 
-const { informations, validateAccount, verificacao } = require("./intermediaries/validations")
-const rotas = express()
+const { informations, validateAccount, verificacao } = require("./intermediaries/validations");
+const authenticateUser = require("./intermediaries/authentication");
+const route = express()
 
-rotas.get("/", welcomePage)
-rotas.post("/signup", informations, validateAccount, registerAccount)
-rotas.post("/login", userLogin)
+route.get("/", welcomePage)
+route.post("/signup", informations, validateAccount, registerAccount)
+route.post("/login", userLogin)
 
+route.use(authenticateUser)
+route.put("/account/:numberAccount/user", informations, validateAccount, atualizarConta)
 
-rotas.put("/contas/:numeroConta/usuario", informations, validateAccount, atualizarConta)
+route.delete("/contas/:numeroConta", excluirConta)
+route.post("/transacoes/depositar", verificacao, depositarNaConta)
+route.post("/transacoes/sacar", verificacao, sacarDaConta)
+route.post("/transacoes/transferir", transferir)
+route.get("/contas/saldo", conferirSaldo)
+route.get("/contas/extrato", extratoCompleto)
 
-rotas.delete("/contas/:numeroConta", excluirConta)
-rotas.post("/transacoes/depositar", verificacao, depositarNaConta)
-rotas.post("/transacoes/sacar", verificacao, sacarDaConta)
-rotas.post("/transacoes/transferir", transferir)
-rotas.get("/contas/saldo", conferirSaldo)
-rotas.get("/contas/extrato", extratoCompleto)
-
-module.exports = rotas
+module.exports = route

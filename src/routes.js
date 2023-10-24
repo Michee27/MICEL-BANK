@@ -1,7 +1,7 @@
 const express = require("express");
 const {
-    listaContas,
-    criarConta,
+    registerAccount,
+    userLogin,
     atualizarConta,
     excluirConta,
     depositarNaConta,
@@ -9,14 +9,19 @@ const {
     transferir,
     conferirSaldo,
     extratoCompleto,
-    welcomePage } = require("./controllers/banco");
+    welcomePage
+} = require("./controllers/bank");
 
-const { informacoes, validarContas, verificacao } = require("./intermediaries/validations")
+const { informations, validateAccount, verificacao } = require("./intermediaries/validations")
 const rotas = express()
 
 rotas.get("/", welcomePage)
-rotas.post("/contas", informacoes, validarContas, criarConta)
-rotas.put("/contas/:numeroConta/usuario", informacoes, validarContas, atualizarConta)
+rotas.post("/signup", informations, validateAccount, registerAccount)
+rotas.post("/login", userLogin)
+
+
+rotas.put("/contas/:numeroConta/usuario", informations, validateAccount, atualizarConta)
+
 rotas.delete("/contas/:numeroConta", excluirConta)
 rotas.post("/transacoes/depositar", verificacao, depositarNaConta)
 rotas.post("/transacoes/sacar", verificacao, sacarDaConta)

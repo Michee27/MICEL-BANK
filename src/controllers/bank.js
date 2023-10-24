@@ -1,4 +1,7 @@
-const knex = require("knex")
+const knex = require("../config/connection")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const secretKey = require("../config/secretKey")
 
 const welcomePage = (request, answer) => {
     return answer.status(200).json({
@@ -6,6 +9,67 @@ const welcomePage = (request, answer) => {
         SIGN_UP: "CLICK HERE",
         SIGN_IN: "CLICK HERE"
     })
+}
+
+const registerAccount = async (request, answer) => {
+    const { name, cpf, date_of_birth, phone, email, password } = request.body
+
+    try {
+
+        const encrypt_password = await bcrypt.hash(password, 10)
+
+        const register = await knex("usuario")
+            .insert({ name, cpf, date_of_birth, phone, email, encrypt_password })
+            .returning(["id", "name", "cpf", "date_of_birth", "phone", "email"]);
+
+        return answer.status(201).json(register)
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
+}
+
+const userLogin = async (request, answer) => {
+    const { email, password } = request.body
+
+    try {
+        const findUser = await knex("usuario").where("email", email)
+
+        if (findUser.length < 1) {
+            return answer.status(400).json({
+                mensagem: "Invalid email username and/or password."
+            })
+        }
+
+        const validatePassword = await bcrypt.compare(password, findUser[0].encrypt_password)
+
+        if (!validatePassword) {
+            return answer.status(400).json({
+                mensagem: "Invalid username and/or password."
+            })
+        }
+
+        const token = jwt.sign({
+            id: findUser[0].id
+        }, secretKey, { expiresIn: "24h" })
+
+        const backUser = {
+            user: {
+                id: findUser[0].id,
+                name: findUser[0].name,
+                email: findUser[0].email
+            },
+            token
+        }
+
+        return answer.status(200).json(backUser)
+
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
 }
 
 
@@ -33,32 +97,7 @@ const listaContas = (requisicao, resposta) => {
     }
 }
 
-let numeroDaConta = 1
-let dados = []
-let saldo = 0
-const criarConta = (requisicao, resposta) => {
-    const { nome, cpf, data_nascimento, telefone, email, senha } = requisicao.body
-    try {
-        dados = {
-            numeroConta: numeroDaConta++,
-            saldo,
-            usuario: {
-                nome,
-                cpf,
-                data_nascimento,
-                telefone,
-                email,
-                senha
-            }
-        }
-        contas.push(dados)
-        return resposta.status(201).json()
-    } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
-        })
-    }
-}
+
 
 const atualizarConta = (requisicao, resposta) => {
     const { numeroConta, } = requisicao.params
@@ -328,7 +367,8 @@ const extratoCompleto = (requisicao, resposta) => {
 
 module.exports = {
     listaContas,
-    criarConta,
+    userLogin,
+    registerAccount,
     atualizarConta,
     excluirConta,
     depositarNaConta,

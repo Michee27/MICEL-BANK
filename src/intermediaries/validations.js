@@ -1,57 +1,65 @@
+const e = require("express")
+const knex = require("../config/connection")
 
-const informacoes = (requisicao, resposta, next) => {
-    const { nome, cpf, data_nascimento, telefone, email, senha } = requisicao.body
 
-    if (!nome) {
-        return resposta.status(400).json({
-            mensagem: "O nome é obrigatório"
+const informations = (request, answer, next) => {
+    const { name, cpf, date_of_birth, phone, email, password } = request.body
+
+    if (!name) {
+        return answer.status(400).json({
+            mensagem: "Please provide your name"
         })
     }
-    if (!data_nascimento) {
-        return resposta.status(400).json({
-            mensagem: "A data de nascimento é obrigatório"
+    if (!date_of_birth) {
+        return answer.status(400).json({
+            mensagem: "Please provide your date of birth"
         })
     }
-    if (!telefone) {
-        return resposta.status(400).json({
-            mensagem: "O telefone é obrigatório"
+    if (!phone) {
+        return answer.status(400).json({
+            mensagem: "Please provide your phone number"
         })
     }
     if (!cpf) {
-        return resposta.status(400).json({
-            mensagem: "O cpf é obrigatório"
+        return answer.status(400).json({
+            mensagem: "Please provide your cpf"
         })
     }
-    if (!senha) {
-        return resposta.status(400).json({
-            mensagem: "A senha é obrigatório"
+    if (!password) {
+        return answer.status(400).json({
+            mensagem: "Please provide your password"
         })
     }
     if (!email) {
-        return resposta.status(400).json({
-            mensagem: "O email é obrigatório"
+        return answer.status(400).json({
+            mensagem: "Please provide your email"
         })
     }
     next()
 }
 
-const validarContas = (requisicao, resposta, next) => {
-    const { cpf, email } = requisicao.body
-    const verificaçãoCPF = contas.find((conta) => {
-        return conta.usuario.cpf === (cpf)
-    })
+const validateAccount = async (request, answer, next) => {
+    const { cpf, email } = request.body
 
-    if (verificaçãoCPF) {
-        return resposta.status(400).json({
-            mensagem: "Já existe uma conta com o cpf informado!"
-        })
-    }
-    const verificaçãoemail = contas.find((conta) => {
-        return conta.usuario.email === (email)
-    })
-    if (verificaçãoemail) {
-        return resposta.status(400).json({
-            mensagem: "Já existe uma conta com o e-mail informado!"
+    try {
+        const validateCPF = await knex("usuario").where("cpf", cpf)
+        if (validateCPF.length > 0) {
+            return answer.status(400).json({
+                mensagem: "An account already exists with the CPF entered!"
+            })
+        }
+
+
+        const validateEmail = await knex("usuario").where("email", email)
+        if (validateEmail.length > 0) {
+            return answer.status(400).json({
+                mensagem: "An account already exists with the email entered!"
+            })
+        }
+
+    } catch (error) {
+        return answer.status(404).json({
+            mensagem: error.mensagem
         })
     }
     next()
@@ -75,8 +83,8 @@ const verificacao = (requisicao, resposta, next) => {
 
 
 module.exports = {
-    informacoes,
-    validarContas,
+    informations,
+    validateAccount,
     verificacao
 }
 

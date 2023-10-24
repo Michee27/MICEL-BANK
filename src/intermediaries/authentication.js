@@ -3,12 +3,12 @@ const knex = require("../config/connection")
 const secretKey = require("../config/secretKey")
 
 
-const autenticarUsuario = async (request, answer, next) => {
+const authenticateUser = async (request, answer, next) => {
     const { authorization } = request.headers
 
     if (!authorization) {
         return answer.status(401).json({
-            message: 'Not authorized'
+            message: "Not authorized"
         })
     }
 
@@ -17,22 +17,18 @@ const autenticarUsuario = async (request, answer, next) => {
     try {
         const { id } = jwt.verify(token, secretKey)
 
-        const { rows, rowCount } = await pool.query(
-            'select * from usuarios where id = $1',
-            [id]
-        )
+        const findId = await knex("usuario").where("id", id)
 
-        if (rowCount < 1) {
-            return resposta.status(401).json({
-                mensagem: 'Não autorizado'
+        if (findId.length < 1) {
+            return answer.status(401).json({
+                message: "Not authorized"
             })
         }
-
-        requisicao.usuarioEncontrado = rows[0]
+        //requisicao.usuarioEncontrado = rows[0]
         next()
     } catch (error) {
-        return resposta.status(401).json({ mensagem: 'Não autorizado' })
+        return answer.status(401).json({ message: "Not authorized" })
     }
 }
 
-//module.exports = autenticarUsuario 
+module.exports = authenticateUser

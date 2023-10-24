@@ -72,6 +72,10 @@ const userLogin = async (request, answer) => {
     }
 }
 
+const updateUser = async (request, answer) => {
+
+}
+
 
 const listaContas = (requisicao, resposta) => {
     const { senha_banco } = requisicao.query

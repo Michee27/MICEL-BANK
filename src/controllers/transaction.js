@@ -1,22 +1,35 @@
 const knex = require("../config/connection")
 
 const deposit = async (request, answer) => {
-    const { balance } = request.body
+    const { amount } = request.body
 
     try {
 
-        if (!balance) {
+        if (!amount) {
             return answer.status(404).json({
                 message: "Enter the amount to be deposited please"
             })
         }
 
-        const updateRows = await knex("usuario")
-            .where("id", request.foundUser.id)
-            .update({ "balance": balance })
-            .returning(["id", "name", "balance"])
+        const insertRows = await knex("deposito")
+            .insert({
+                "amount": amount,
+                "account_id": request.foundUser.id
+            })
+            .returning(["id", "amount", "account_id", "transaction_date"])
 
-        return answer.status(200).json(updateRows)
+        return answer.status(200).json(insertRows)
+
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
+}
+
+const transfer = async (request, answer) => {
+
+    try {
 
     } catch (error) {
         return answer.status(404).json({
@@ -26,5 +39,6 @@ const deposit = async (request, answer) => {
 }
 
 module.exports = {
-    deposit
+    deposit,
+    transfer
 }

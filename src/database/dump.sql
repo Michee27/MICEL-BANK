@@ -17,6 +17,13 @@ create table deposito (
   transaction_date date default current_date
 );
 
+create table sacar (
+  id serial primary key,
+  amount int not null,
+  account_id integer references usuario(id),
+  transaction_date date default current_date
+);
+
 create table transferencia (
   id serial primary key,
   type text not null,

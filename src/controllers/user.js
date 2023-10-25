@@ -115,92 +115,28 @@ const userDetail = async (request, answer) => {
 
 }
 
-
-/*const listaContas = (requisicao, resposta) => {
-    const { senha_banco } = requisicao.query
-    const senhaCorreta = "MICEL123Bank"
-
+const deleteAccount = async (request, answer) => {
     try {
-        if (senha_banco === senhaCorreta) {
-            resposta.status(200).json({
-                WELCOME: "BEM VINDO AO MICEL BANK",
-                banco,
-                QUANTIDADES: `${contas.length} contas encontradas`,
-                contas
-            })
-        } else {
-            return resposta.status(401).json({
-                mensagem: "A senha do banco informada é inválida!"
-            })
-        }
-    } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
-        })
-    }
-}*/
 
-
-
-/*const atualizarConta = (requisicao, resposta) => {
-    const { numeroConta, } = requisicao.params
-    const { nome, cpf, data_nascimento, telefone, email, senha } = requisicao.body
-
-    try {
-        const contaEncontrada = contas.find((conta) => {
-            return conta.numeroConta === Number(numeroConta)
-        })
-
-        if (!contaEncontrada) {
-            return resposta.status(404).json({
-                mensagem: "Numero da conta incorreto"
+        if (request.foundUser.balance > 0) {
+            return answer.status(400).json({
+                message: "The account can only be removed if the balance is zero!"
             })
         }
 
-        contaEncontrada.usuario.nome = nome
-        contaEncontrada.usuario.cpf = cpf
-        contaEncontrada.usuario.data_nascimento = data_nascimento
-        contaEncontrada.usuario.telefone = telefone
-        contaEncontrada.usuario.email = email
-        contaEncontrada.usuario.senha = senha
+        const foundUserID = await knex("usuario").del()
+            .where("id", request.foundUser.id).returning("*")
+
+        return answer.status(201).send()
+
     } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
-        })
-    }
-
-    return resposta.status(201).json()
-}
-
-const excluirConta = (requisicao, resposta) => {
-    const { numeroConta } = requisicao.params
-    try {
-        const acharconta = contas.find((elemento) => {
-            return elemento.numeroConta === Number(numeroConta)
-        })
-
-        if (acharconta) {
-            if (acharconta.saldo > 0) {
-                return resposta.status(400).json({
-                    mensagem: "A conta só pode ser removida se o saldo for zero!"
-                })
-            }
-        } else if (!acharconta) {
-            return resposta.status(400).json({
-                mensagem: "conta não encontrado"
-            })
-        }
-
-        contas = contas.filter((elemento) => {
-            return elemento.numeroConta !== Number(numeroConta)
-        })
-        return resposta.status(201).json()
-    } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
+        return answer.status(404).json({
+            message: error.mensagem
         })
     }
 }
+
+/*
 
 let dadosDeDeposito = []
 const depositarNaConta = (requisicao, resposta) => {
@@ -414,7 +350,8 @@ module.exports = {
     userLogin,
     registerAccount,
     updateUser,
-    userDetail
+    userDetail,
+    deleteAccount
     //atualizarConta,
     //excluirConta,
     //depositarNaConta,

@@ -6,6 +6,7 @@ const {
     atualizarConta,
     updateUser,
     userDetail,
+    deleteAccount,
     //excluirConta,
     //depositarNaConta,
     //sacarDaConta,
@@ -16,6 +17,7 @@ const {
 
 const { informations, validateAccount, verificacao } = require("./intermediaries/validations");
 const authenticateUser = require("./intermediaries/authentication");
+const { deposit } = require("./controllers/transaction");
 
 const route = express()
 
@@ -26,6 +28,9 @@ route.post("/login", userLogin)
 route.use(authenticateUser)
 route.put("/account/user", informations, validateAccount, updateUser)
 route.get("/user", userDetail)
+route.delete("/delete/account", deleteAccount)
+
+route.post("/account/deposit", deposit)
 
 /*
 route.delete("/contas/:numeroConta", excluirConta)

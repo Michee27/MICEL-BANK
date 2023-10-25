@@ -3,21 +3,15 @@ const {
     welcomePage,
     registerAccount,
     userLogin,
-    atualizarConta,
     updateUser,
     userDetail,
     deleteAccount,
-    //excluirConta,
-    //depositarNaConta,
-    //sacarDaConta,
-    //transferir,
-    //conferirSaldo,
-    //extratoCompleto,
+
 } = require("./controllers/user");
 
 const { informations, validateAccount, verificacao } = require("./intermediaries/validations");
 const authenticateUser = require("./intermediaries/authentication");
-const { deposit } = require("./controllers/transaction");
+const { deposit, withdraw } = require("./controllers/transaction");
 
 const route = express()
 
@@ -31,10 +25,9 @@ route.get("/user", userDetail)
 route.delete("/delete/account", deleteAccount)
 
 route.post("/account/deposit", deposit)
+route.post("/account/withdraw", withdraw)
 
 /*
-route.delete("/contas/:numeroConta", excluirConta)
-route.post("/transacoes/depositar", verificacao, depositarNaConta)
 route.post("/transacoes/sacar", verificacao, sacarDaConta)
 route.post("/transacoes/transferir", transferir)
 route.get("/contas/saldo", conferirSaldo)

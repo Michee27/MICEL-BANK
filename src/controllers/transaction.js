@@ -15,10 +15,38 @@ const deposit = async (request, answer) => {
             .insert({
                 "amount": amount,
                 "account_id": request.foundUser.id
-            })
-            .returning(["id", "amount", "account_id", "transaction_date"])
+            }).returning(["id", "amount", "account_id", "transaction_date"])
 
-        return answer.status(200).json(insertRows)
+        const balanceUpdate = await knex("deposito")
+            .where("account_id", request.foundUser.id)
+            .sum("amount as total_amount")
+            .first();
+
+        const detail = {
+            id: insertRows[0].id,
+            amount: insertRows[0].amount,
+            transaction_date: insertRows[0].transaction_date,
+            new_balance: balanceUpdate.total_amount
+        }
+
+        return answer.status(200).json(detail)
+
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
+}
+
+const withdraw = async (request, answer) => {
+    const { amount } = request.body
+
+    try {
+        if (request.foundUser.balance <= 0) {
+            return answer.status(400).json({
+                message: "insufficient funds"
+            })
+        }
 
     } catch (error) {
         return answer.status(404).json({
@@ -40,5 +68,6 @@ const transfer = async (request, answer) => {
 
 module.exports = {
     deposit,
+    withdraw,
     transfer
 }

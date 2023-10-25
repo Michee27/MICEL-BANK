@@ -20,7 +20,6 @@ const registerAccount = async (request, answer) => {
 
         const register = await knex("usuario")
             .insert({ name, cpf, date_of_birth, phone, email, encrypt_password })
-        //.returning(["id", "name", "cpf", "date_of_birth", "phone", "email", "balance"]);
 
         return answer.status(201).json({
             message: "Account created successfully"
@@ -60,7 +59,7 @@ const userLogin = async (request, answer) => {
             user: {
                 id: findUser[0].id,
                 name: findUser[0].name,
-                email: findUser[0].email
+                email: findUser[0].email,
             },
             token
         }
@@ -98,11 +97,17 @@ const updateUser = async (request, answer) => {
 const userDetail = async (request, answer) => {
 
     try {
+
+        const balanceUpdate = await knex("deposito")
+            .where("account_id", request.foundUser.id)
+            .sum("amount as total_amount")
+            .first();
+
         const user = {
             id: request.foundUser.id,
             name: request.foundUser.name,
             email: request.foundUser.email,
-            balance: request.foundUser.balance
+            balance: balanceUpdate.total_amount
         }
 
         answer.status(200).json(user)
@@ -137,42 +142,6 @@ const deleteAccount = async (request, answer) => {
 }
 
 /*
-
-let dadosDeDeposito = []
-const depositarNaConta = (requisicao, resposta) => {
-    const { numero_conta, valor } = requisicao.body
-
-    try {
-        const acharconta = contas.find((conta) => {
-            return conta.numeroConta === Number(numero_conta)
-        })
-
-        if (!acharconta) {
-            return resposta.status(400).json({
-                mensagem: "conta não encontrado"
-            })
-        } else if (acharconta && valor > 0) {
-            acharconta.saldo += valor
-            dadosDeDeposito = {
-                data: new Date(),
-                numero_conta,
-                valor
-            }
-            depositos.push(dadosDeDeposito)
-
-        } else {
-            return resposta.status(400).json({
-                mensagem: "Valor informado não é permitido"
-            })
-        }
-        return resposta.status(201).json()
-    } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
-        })
-    }
-}
-
 let dadosDoSaque = []
 const sacarDaConta = (requisicao, resposta) => {
     const { numero_conta, valor, senha } = requisicao.body

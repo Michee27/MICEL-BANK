@@ -24,7 +24,8 @@ const authenticateUser = async (request, answer, next) => {
                 message: "Not authorized"
             })
         }
-        //requisicao.usuarioEncontrado = rows[0]
+
+        request.foundUser = findId[0]
         next()
     } catch (error) {
         return answer.status(401).json({ message: "Not authorized" })

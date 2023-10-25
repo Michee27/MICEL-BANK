@@ -9,3 +9,12 @@ create table usuario (
   email text not null unique,
   password text not null
 );
+
+create table transacao (
+  id serial primary key,
+  descricao text,
+  tipo_transacao text not null,
+  deposito int,
+  usuario_id integer references usuario(id),
+  data_transacao date default datenow()
+);

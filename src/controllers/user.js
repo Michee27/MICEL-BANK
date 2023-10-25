@@ -20,9 +20,11 @@ const registerAccount = async (request, answer) => {
 
         const register = await knex("usuario")
             .insert({ name, cpf, date_of_birth, phone, email, encrypt_password })
-            .returning(["id", "name", "cpf", "date_of_birth", "phone", "email"]);
+        //.returning(["id", "name", "cpf", "date_of_birth", "phone", "email", "balance"]);
 
-        return answer.status(201).json(register)
+        return answer.status(201).json({
+            message: "Account created successfully"
+        })
     } catch (error) {
         return answer.status(404).json({
             message: error.mensagem
@@ -73,11 +75,48 @@ const userLogin = async (request, answer) => {
 }
 
 const updateUser = async (request, answer) => {
+    const { name, cpf, date_of_birth, phone, email, password } = request.body
+
+    try {
+
+        const encrypt_password = await bcrypt.hash(password, 10)
+
+        const foundUserID = await knex("usuario")
+            .update({ name, cpf, date_of_birth, phone, email, encrypt_password })
+            .where("id", request.foundUser.id)
+            .returning(["id", "name", "cpf", "date_of_birth", "phone", "email"])
+
+        return answer.status(201).json(foundUserID[0])
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
+
+}
+
+const userDetail = async (request, answer) => {
+
+    try {
+        const user = {
+            id: request.foundUser.id,
+            name: request.foundUser.name,
+            email: request.foundUser.email,
+            balance: request.foundUser.balance
+        }
+
+        answer.status(200).json(user)
+
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
 
 }
 
 
-const listaContas = (requisicao, resposta) => {
+/*const listaContas = (requisicao, resposta) => {
     const { senha_banco } = requisicao.query
     const senhaCorreta = "MICEL123Bank"
 
@@ -99,11 +138,11 @@ const listaContas = (requisicao, resposta) => {
             mensagem: error.mensagem
         })
     }
-}
+}*/
 
 
 
-const atualizarConta = (requisicao, resposta) => {
+/*const atualizarConta = (requisicao, resposta) => {
     const { numeroConta, } = requisicao.params
     const { nome, cpf, data_nascimento, telefone, email, senha } = requisicao.body
 
@@ -367,18 +406,21 @@ const extratoCompleto = (requisicao, resposta) => {
             mensagem: error.mensagem
         })
     }
-}
+}*/
 
 module.exports = {
-    listaContas,
+    welcomePage,
+    //listaContas,
     userLogin,
     registerAccount,
-    atualizarConta,
-    excluirConta,
-    depositarNaConta,
-    sacarDaConta,
-    transferir,
-    conferirSaldo,
-    extratoCompleto,
-    welcomePage
+    updateUser,
+    userDetail
+    //atualizarConta,
+    //excluirConta,
+    //depositarNaConta,
+    //sacarDaConta,
+    //transferir,
+    //conferirSaldo,
+    //extratoCompleto,
+
 }

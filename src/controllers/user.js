@@ -123,7 +123,12 @@ const userDetail = async (request, answer) => {
 const deleteAccount = async (request, answer) => {
     try {
 
-        if (request.foundUser.balance > 0) {
+        const userBalance = await knex("saldo")
+            .where("user_id", request.foundUser.id)
+            .sum("balance as total_amount")
+            .first()
+
+        if (parseFloat(userBalance.total_amount) > 0) {
             return answer.status(400).json({
                 message: "The account can only be removed if the balance is zero!"
             })

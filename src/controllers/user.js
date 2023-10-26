@@ -141,94 +141,11 @@ const deleteAccount = async (request, answer) => {
     }
 }
 
-/*
-const conferirSaldo = (requisicao, resposta) => {
-    const { numero_conta, senha } = requisicao.query
-
-    const acharconta = contas.find((elemento) => {
-        return elemento.numeroConta === Number(numero_conta)
-    })
-
-    if (acharconta) {
-        if (acharconta.usuario.senha === senha) {
-            return resposta.status(200).json({
-                Saldo: acharconta.saldo
-            })
-        } else {
-            return resposta.status(400).json({
-                mensagem: "Senha incorreta"
-            })
-        }
-    } else {
-        return resposta.status(400).json({
-            mensagem: "conta não encontrado"
-        })
-    }
-}
-
-let extrato = {}
-const extratoCompleto = (requisicao, resposta) => {
-    const { numero_conta, senha } = requisicao.query
-
-    try {
-        const acharconta = contas.find((elemento) => {
-            return elemento.numeroConta === Number(numero_conta)
-        })
-        const deposito = depositos.filter((conta) => {
-            return Number(conta.numero_conta) === Number(acharconta.numeroConta)
-        })
-        const resumoDeSaques = saques.filter((conta) => {
-            return Number(conta.numero_conta) === Number(acharconta.numeroConta)
-        })
-        const TranferenciasEnviadas = transferencias.filter((conta) => {
-            return Number(conta.numero_conta_origem) === Number(acharconta.numeroConta)
-        })
-        const TranferenciasRecebidas = transferencias.filter((conta) => {
-            return Number(conta.numero_conta_destino) === Number(acharconta.numeroConta)
-        })
-        if (acharconta) {
-            if (acharconta.usuario.senha === senha) {
-                extrato = {
-                    mensagem: `Extrato conta ${numero_conta}`,
-                    TranferenciasEnviadas,
-                    TranferenciasRecebidas,
-                    deposito,
-                    Saques: resumoDeSaques
-                }
-                return resposta.status(200).json({
-                    extrato
-                })
-            } else {
-                return resposta.status(400).json({
-                    mensagem: "Senha incorreta"
-                })
-            }
-        } else {
-            return resposta.status(400).json({
-                mensagem: "conta não encontrado"
-            })
-        }
-    } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
-        })
-    }
-}*/
-
 module.exports = {
     welcomePage,
-    //listaContas,
     userLogin,
     registerAccount,
     updateUser,
     userDetail,
     deleteAccount
-    //atualizarConta,
-    //excluirConta,
-    //depositarNaConta,
-    //sacarDaConta,
-    //transferir,
-    //conferirSaldo,
-    //extratoCompleto,
-
 }

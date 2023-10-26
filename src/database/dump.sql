@@ -7,7 +7,7 @@ create table usuario (
   date_of_birth text not null,
   phone text not null,
   email text not null unique,
-  password text not null
+  encrypt_password text not null
 );
 
 create table deposito (

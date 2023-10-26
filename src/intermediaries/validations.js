@@ -65,26 +65,8 @@ const validateAccount = async (request, answer, next) => {
     next()
 }
 
-const verificacao = (requisicao, resposta, next) => {
-    const { numero_conta, valor } = requisicao.body
-    if (!numero_conta) {
-        return resposta.status(400).json({
-            mensagem: "O número da conta é obrigatórios!"
-        })
-    }
-    if (!valor) {
-        return resposta.status(400).json({
-            mensagem: "O valor é obrigatórios!"
-        })
-    }
-    next()
-}
-
-
-
 module.exports = {
     informations,
-    validateAccount,
-    verificacao
+    validateAccount
 }
 

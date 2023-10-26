@@ -1,7 +1,6 @@
 const e = require("express")
 const knex = require("../config/connection")
 
-
 const informations = (request, answer, next) => {
     const { name, cpf, date_of_birth, phone, email, password } = request.body
 

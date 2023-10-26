@@ -12,9 +12,9 @@ const {
 const {
     informations,
     validateAccount
-} = require("./intermediaries/validations");
+} = require("./middlers/validations");
 
-const authenticateUser = require("./intermediaries/authentication");
+const authenticateUser = require("./middlers/authentication");
 
 const { deposit,
     withdraw,

@@ -123,12 +123,19 @@ const transfer = async (request, answer) => {
             })
         }
 
-        const insertRows = await knex("transferencia_enviada")
+        const sendTransfer = await knex("transferencia_enviada")
             .insert({
                 "amount": amount,
                 "shipping_account_id": request.foundUser.id,
                 "receiver_account_id": receiver_account_id
             }).returning("*")
+
+        const receiveTransfer = await knex("transferencia_recebida")
+            .insert({
+                "amount": amount,
+                "shipping_account_id": request.foundUser.id,
+                "receiver_account_id": receiver_account_id
+            })
 
         const balanceUpdate = await knex("saldo")
             .insert({
@@ -137,9 +144,9 @@ const transfer = async (request, answer) => {
             })
 
         const detail = {
-            amount_sent: insertRows[0].amount,
-            receiver_account_id: insertRows[0].receiver_account_id,
-            transaction_date: insertRows[0].transaction_date
+            amount_sent: sendTransfer[0].amount,
+            receiver_account_id: sendTransfer[0].receiver_account_id,
+            transaction_date: sendTransfer[0].transaction_date
         }
         return answer.status(201).json(detail)
 
@@ -150,8 +157,62 @@ const transfer = async (request, answer) => {
     }
 }
 
+const detailBalance = async (request, answer) => {
+
+    try {
+        const checkBalance = await knex("saldo")
+            .where("user_id", request.foundUser.id)
+            .sum("balance as total_amount")
+            .first();
+
+        if (checkBalance.total_amount < 0) {
+            return answer.status(404).json({
+                message: "Your balance is zero"
+            })
+        }
+        return answer.status(200).json(checkBalance)
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
+}
+
+const accountStatement = async (request, answer) => {
+
+    try {
+
+        const withdrawalStatement = await knex("sacar")
+            .where("account_id", request.foundUser.id)
+
+        const depositStatement = await knex("deposito")
+            .where("account_id", request.foundUser.id)
+
+        const transfersSent = await knex("transferencia_enviada")
+            .where("shipping_account_id", request.foundUser.id)
+
+        const receiveTransfer = await knex("transferencia_recebida")
+            .where("receiver_account_id", request.foundUser.id)
+
+        return answer.json({
+            withdrawalStatement,
+            depositStatement,
+            transfersSent,
+            receiveTransfer
+        })
+
+    } catch (error) {
+        return answer.status(404).json({
+            message: error.mensagem
+        })
+    }
+
+}
+
 module.exports = {
     deposit,
     withdraw,
-    transfer
+    transfer,
+    detailBalance,
+    accountStatement
 }

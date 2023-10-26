@@ -1,17 +1,27 @@
 const express = require("express");
+
 const {
     welcomePage,
     registerAccount,
     userLogin,
     updateUser,
     userDetail,
-    deleteAccount,
-
+    deleteAccount
 } = require("./controllers/user");
 
-const { informations, validateAccount, verificacao } = require("./intermediaries/validations");
+const {
+    informations,
+    validateAccount
+} = require("./intermediaries/validations");
+
 const authenticateUser = require("./intermediaries/authentication");
-const { deposit, withdraw, transfer } = require("./controllers/transaction");
+
+const { deposit,
+    withdraw,
+    transfer,
+    detailBalance,
+    accountStatement
+} = require("./controllers/transaction");
 
 const route = express()
 
@@ -27,11 +37,7 @@ route.delete("/delete/account", deleteAccount)
 route.post("/account/deposit", deposit)
 route.post("/account/withdraw", withdraw)
 route.post("/account/transfer", transfer)
-
-/*
-route.post("/transacoes/sacar", verificacao, sacarDaConta)
-route.post("/transacoes/transferir", transferir)
-route.get("/contas/saldo", conferirSaldo)
-route.get("/contas/extrato", extratoCompleto)*/
+route.get("/account/balance", detailBalance)
+route.get("/account/statement", accountStatement)
 
 module.exports = route

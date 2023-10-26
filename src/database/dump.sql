@@ -34,6 +34,15 @@ create table transferencia_enviada (
   id serial primary key,
   amount int not null,
   receiver_account_id integer references usuario(id),
+  shipping_account_id int 
+  transaction_date date default current_date
+);
+
+create table transferencia_recebida (
+  id serial primary key,
+  amount int not null,
+  shipping_account_id integer references usuario(id),
+  receiver_account_id int,
   transaction_date date default current_date
 );
 

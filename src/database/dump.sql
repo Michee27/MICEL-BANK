@@ -10,6 +10,12 @@ create table usuario (
   encrypt_password text not null
 );
 
+create table saldo (
+  id serial primary key,
+  user_id integer references usuario(id),
+  balance int
+);
+
 create table deposito (
   id serial primary key,
   amount int not null,
@@ -24,10 +30,10 @@ create table sacar (
   transaction_date date default current_date
 );
 
-create table transferencia (
+create table transferencia_enviada (
   id serial primary key,
-  type text not null,
   amount int not null,
-  shipping_account_id integer references usuario(id),
-  receiver_account_id integer references usuario(id)
+  receiver_account_id integer references usuario(id),
+  transaction_date date default current_date
 );
+

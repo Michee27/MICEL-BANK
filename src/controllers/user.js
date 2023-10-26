@@ -98,16 +98,16 @@ const userDetail = async (request, answer) => {
 
     try {
 
-        const balanceUpdate = await knex("deposito")
-            .where("account_id", request.foundUser.id)
-            .sum("amount as total_amount")
+        const balanceUpdate = await knex("saldo")
+            .where("user_id", request.foundUser.id)
+            .sum("balance as total_amount")
             .first();
 
         const user = {
             id: request.foundUser.id,
             name: request.foundUser.name,
             email: request.foundUser.email,
-            balance: balanceUpdate.total_amount
+            balance: parseFloat(balanceUpdate.total_amount)
         }
 
         answer.status(200).json(user)
@@ -142,104 +142,6 @@ const deleteAccount = async (request, answer) => {
 }
 
 /*
-let dadosDoSaque = []
-const sacarDaConta = (requisicao, resposta) => {
-    const { numero_conta, valor, senha } = requisicao.body
-
-    try {
-        if (!senha) {
-            return resposta.status(400).json({
-                mensagem: "Por favor, informe a senha"
-            })
-        }
-        const acharconta = contas.find((conta) => {
-            return conta.numeroConta === Number(numero_conta)
-        })
-        if (acharconta) {
-            if (acharconta.usuario.senha === senha) {
-                if (acharconta.saldo >= valor && valor > 0) {
-                    acharconta.saldo -= valor
-                    dadosDoSaque = {
-                        data: new Date(),
-                        numero_conta,
-                        valor
-                    }
-                    saques.push(dadosDoSaque)
-                } else {
-                    return resposta.status(400).json({
-                        mensagem: "Saldo insuficiente"
-                    })
-                }
-            } else {
-                return resposta.status(400).json({
-                    mensagem: "Senha incorreta"
-                })
-            }
-        } else {
-            return resposta.status(400).json({
-                mensagem: "conta não encontrado"
-            })
-        }
-        return resposta.status(201).json()
-    } catch (error) {
-        return resposta.status(404).json({
-            mensagem: error.mensagem
-        })
-    }
-}
-
-let dadosTransferencia = []
-const transferir = (requisicao, resposta) => {
-    const { numero_conta_origem, numero_conta_destino, valor, senha } = requisicao.body
-    if (!numero_conta_origem || !numero_conta_destino) {
-        return resposta.status(400).json({
-            mensagem: "Por favor, informe o numero da conta origem e destino"
-        })
-    }
-
-    const acharconta1 = contas.find((elemento) => {
-        return elemento.numeroConta === Number(numero_conta_origem)
-    })
-    const acharconta2 = contas.find((elemento) => {
-        return elemento.numeroConta === Number(numero_conta_destino)
-    })
-
-    if (acharconta1 && acharconta2 && acharconta1 !== acharconta2) {
-        if (acharconta1.usuario.senha === senha) {
-            if (acharconta1.saldo >= valor) {
-                if (valor > 0) {
-                    acharconta1.saldo -= valor
-                    acharconta2.saldo += valor
-                    dadosTransferencia = {
-                        data: new Date(),
-                        numero_conta_origem,
-                        numero_conta_destino,
-                        valor
-                    }
-                } else {
-                    return resposta.status(400).json({
-                        mensagem: "Informe por favor o valor da transferencia"
-                    })
-                }
-                transferencias.push(dadosTransferencia)
-            } else {
-                return resposta.status(400).json({
-                    mensagem: "Saldo insuficiente"
-                })
-            }
-        } else {
-            return resposta.status(400).json({
-                mensagem: "Senha incorreta"
-            })
-        }
-    } else {
-        return resposta.status(400).json({
-            mensagem: "conta não encontrado"
-        })
-    }
-    return resposta.status(201).json()
-}
-
 const conferirSaldo = (requisicao, resposta) => {
     const { numero_conta, senha } = requisicao.query
 

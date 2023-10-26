@@ -65,8 +65,20 @@ const validateAccount = async (request, answer, next) => {
     next()
 }
 
+const validadeAmount = async (request, answer, next) => {
+    const { amount } = request.body
+
+    if (!amount) {
+        return answer.status(404).json({
+            message: "Enter the amount to be withdrawn please"
+        })
+    }
+
+}
+
 module.exports = {
     informations,
-    validateAccount
+    validateAccount,
+    validadeAmount
 }
 

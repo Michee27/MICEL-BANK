@@ -53,14 +53,6 @@ const withdraw = async (request, answer) => {
                 message: "Enter the amount to be withdrawn please"
             })
         }
-        const accountAmount = await knex("saldo")
-            .where("user_id", request.foundUser.id)
-
-        if (accountAmount[0].balance < 1) {
-            return answer.status(400).json({
-                message: "insufficient funds"
-            })
-        }
 
         const checkBalance = await knex("saldo")
             .where("user_id", request.foundUser.id)
@@ -137,10 +129,16 @@ const transfer = async (request, answer) => {
                 "receiver_account_id": receiver_account_id
             })
 
-        const balanceUpdate = await knex("saldo")
+        const balanceUpdateShipper = await knex("saldo")
             .insert({
                 "balance": -amount,
                 "user_id": request.foundUser.id
+            })
+
+        const balanceUpdateReceiver = await knex("saldo")
+            .insert({
+                "balance": amount,
+                "user_id": receiver_account_id
             })
 
         const detail = {

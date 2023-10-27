@@ -1,38 +1,14 @@
 const e = require("express")
 const knex = require("../config/connection")
 
-const informations = (request, answer, next) => {
-    const { name, cpf, date_of_birth, phone, email, password } = request.body
 
-    if (!name) {
-        return answer.status(400).json({
-            mensagem: "Please provide your name"
-        })
-    }
-    if (!date_of_birth) {
-        return answer.status(400).json({
-            mensagem: "Please provide your date of birth"
-        })
-    }
-    if (!phone) {
-        return answer.status(400).json({
-            mensagem: "Please provide your phone number"
-        })
-    }
-    if (!cpf) {
-        return answer.status(400).json({
-            mensagem: "Please provide your cpf"
-        })
-    }
-    if (!password) {
-        return answer.status(400).json({
-            mensagem: "Please provide your password"
-        })
-    }
-    if (!email) {
-        return answer.status(400).json({
-            mensagem: "Please provide your email"
-        })
+const informations = (arrayData) => (request, answer, next) => {
+    for (const item of arrayData) {
+        if (!request.body[item]) {
+            return answer.status(400).json({
+                message: `Please provide your ${item}`
+            })
+        }
     }
     next()
 }

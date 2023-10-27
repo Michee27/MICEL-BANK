@@ -1,5 +1,7 @@
 const express = require("express");
 
+const personalData = ["name", "cpf", "date_of_birth", "phone", "email", "password"]
+
 const {
     welcomePage,
     registerAccount,
@@ -26,11 +28,11 @@ const { deposit,
 const route = express()
 
 route.get("/", welcomePage)
-route.post("/signup", informations, validateAccount, registerAccount)
+route.post("/signup", informations(personalData), validateAccount, registerAccount)
 route.post("/login", userLogin)
 
 route.use(authenticateUser)
-route.put("/account/user", informations, validateAccount, updateUser)
+route.put("/account/user", informations(personalData), validateAccount, updateUser)
 route.get("/user", userDetail)
 route.delete("/delete/account", deleteAccount)
 

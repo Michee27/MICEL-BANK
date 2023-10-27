@@ -4,12 +4,6 @@ const deposit = async (request, answer) => {
     const { amount } = request.body
 
     try {
-        if (!amount) {
-            return answer.status(404).json({
-                message: "Enter the amount to be deposited please"
-            })
-        }
-
         const insertDeposit = await knex("deposito")
             .insert({
                 "amount": amount,
@@ -37,8 +31,9 @@ const deposit = async (request, answer) => {
         return answer.status(200).json(detail)
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }
@@ -47,19 +42,7 @@ const withdraw = async (request, answer) => {
     const { amount } = request.body
 
     try {
-
-        if (!amount) {
-            return answer.status(404).json({
-                message: "Enter the amount to be withdrawn please"
-            })
-        }
-
-        const checkBalance = await knex("saldo")
-            .where("user_id", request.foundUser.id)
-            .sum("balance as total_amount")
-            .first();
-
-        if (amount > parseFloat(checkBalance.total_amount)) {
+        if (amount > parseFloat(request.userBalance.total_amount)) {
             return answer.status(400).json({
                 message: "insufficient funds"
             })
@@ -82,14 +65,15 @@ const withdraw = async (request, answer) => {
             message: "Withdray made successfully",
             amount: insertRows[0].amount,
             transaction_date: insertRows[0].transaction_date,
-            new_balance: parseFloat(checkBalance.total_amount) - amount
+            new_balance: parseFloat(request.userBalance.total_amount) - amount
         }
 
         return answer.status(200).json(detail)
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }
@@ -98,18 +82,7 @@ const transfer = async (request, answer) => {
     const { amount, receiver_account_id } = request.body
 
     try {
-        if (!amount) {
-            return answer.status(404).json({
-                message: "Enter the amount please"
-            })
-        }
-
-        const checkBalance = await knex("saldo")
-            .where("user_id", request.foundUser.id)
-            .sum("balance as total_amount")
-            .first();
-
-        if (amount > parseFloat(checkBalance.total_amount)) {
+        if (amount > parseFloat(request.userBalance.total_amount)) {
             return answer.status(400).json({
                 message: "insufficient funds"
             })
@@ -149,8 +122,9 @@ const transfer = async (request, answer) => {
         return answer.status(201).json(detail)
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }
@@ -158,20 +132,13 @@ const transfer = async (request, answer) => {
 const detailBalance = async (request, answer) => {
 
     try {
-        const checkBalance = await knex("saldo")
-            .where("user_id", request.foundUser.id)
-            .sum("balance as total_amount")
-            .first();
 
-        if (checkBalance.total_amount < 0) {
-            return answer.status(404).json({
-                message: "Your balance is zero"
-            })
-        }
-        return answer.status(200).json(checkBalance)
+        return answer.status(200).json(request.userBalance)
+
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }
@@ -200,8 +167,9 @@ const accountStatement = async (request, answer) => {
         })
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 

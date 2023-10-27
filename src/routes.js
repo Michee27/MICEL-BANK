@@ -1,6 +1,6 @@
 const express = require("express");
-
 const personalData = ["name", "cpf", "date_of_birth", "phone", "email", "password"]
+const checkAmount = ["amount"]
 
 const {
     welcomePage,
@@ -13,7 +13,8 @@ const {
 
 const {
     informations,
-    validateAccount
+    validateAccount,
+    validateBalance
 } = require("./middlers/validations");
 
 const authenticateUser = require("./middlers/authentication");
@@ -33,13 +34,13 @@ route.post("/login", userLogin)
 
 route.use(authenticateUser)
 route.put("/account/user", informations(personalData), validateAccount, updateUser)
-route.get("/user", userDetail)
-route.delete("/delete/account", deleteAccount)
+route.get("/user", validateBalance, userDetail)
+route.delete("/delete/account", validateBalance, deleteAccount)
 
-route.post("/account/deposit", deposit)
-route.post("/account/withdraw", withdraw)
-route.post("/account/transfer", transfer)
-route.get("/account/balance", detailBalance)
+route.post("/account/deposit", informations(checkAmount), deposit)
+route.post("/account/withdraw", informations(checkAmount), validateBalance, withdraw)
+route.post("/account/transfer", informations(checkAmount), validateBalance, transfer)
+route.get("/account/balance", validateBalance, detailBalance)
 route.get("/account/statement", accountStatement)
 
 module.exports = route

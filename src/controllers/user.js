@@ -25,8 +25,9 @@ const registerAccount = async (request, answer) => {
             message: "Account created successfully"
         })
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }
@@ -67,8 +68,9 @@ const userLogin = async (request, answer) => {
         return answer.status(200).json(backUser)
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }
@@ -87,8 +89,9 @@ const updateUser = async (request, answer) => {
 
         return answer.status(201).json(foundUserID[0])
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 
@@ -97,24 +100,19 @@ const updateUser = async (request, answer) => {
 const userDetail = async (request, answer) => {
 
     try {
-
-        const balanceUpdate = await knex("saldo")
-            .where("user_id", request.foundUser.id)
-            .sum("balance as total_amount")
-            .first();
-
         const user = {
             id: request.foundUser.id,
             name: request.foundUser.name,
             email: request.foundUser.email,
-            balance: parseFloat(balanceUpdate.total_amount)
+            balance: parseFloat(request.userBalance.total_amount)
         }
 
         answer.status(200).json(user)
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 
@@ -122,26 +120,23 @@ const userDetail = async (request, answer) => {
 
 const deleteAccount = async (request, answer) => {
     try {
-
-        const userBalance = await knex("saldo")
-            .where("user_id", request.foundUser.id)
-            .sum("balance as total_amount")
-            .first()
-
-        if (parseFloat(userBalance.total_amount) > 0) {
+        if (parseFloat(request.userBalance.total_amount) !== 0) {
             return answer.status(400).json({
                 message: "The account can only be removed if the balance is zero!"
             })
         }
 
-        const foundUserID = await knex("usuario").del()
-            .where("id", request.foundUser.id).returning("*")
+        const deleteUser = await knex("usuario").del()
+            .where("id", request.foundUser.id).debug()
 
-        return answer.status(201).send()
+        return answer.status(201).json({
+            message: "account successfully deleted"
+        })
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: error.mensagem
+            message: "Internal server error"
         })
     }
 }

@@ -1,7 +1,6 @@
 const e = require("express")
 const knex = require("../config/connection")
 
-
 const informations = (arrayData) => (request, answer, next) => {
     for (const item of arrayData) {
         if (!request.body[item]) {
@@ -24,7 +23,6 @@ const validateAccount = async (request, answer, next) => {
             })
         }
 
-
         const validateEmail = await knex("usuario").where("email", email)
         if (validateEmail.length > 0) {
             return answer.status(400).json({
@@ -33,27 +31,36 @@ const validateAccount = async (request, answer, next) => {
         }
 
     } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            mensagem: error.mensagem
+            message: "Internal server error"
         })
     }
     next()
 }
 
-const validadeAmount = async (request, answer, next) => {
-    const { amount } = request.body
+const validateBalance = async (request, answer, next) => {
 
-    if (!amount) {
+    try {
+        const userBalance = await knex("saldo")
+            .where("user_id", request.foundUser.id)
+            .sum("balance as total_amount")
+            .first()
+        request.userBalance = userBalance
+
+    } catch (error) {
+        console.log(error)
         return answer.status(404).json({
-            message: "Enter the amount to be withdrawn please"
+            message: "Internal server error"
         })
     }
-
+    next()
 }
+
 
 module.exports = {
     informations,
     validateAccount,
-    validadeAmount
+    validateBalance
 }
 

@@ -4,7 +4,7 @@ Welcome to MICEL Bank! This is a prototype of a digital bank project.
 
    ## Descrição:
 
-Our bank is a RESTful API and its main objective is to offer our customers a safe, easy-to-use, and dynamic environment where they can control their finances from creating the bank to issuing activity statements. It is developed in JavaScript language.
+The bank is a RESTful API and its main objective is to offer our customers a safe, easy-to-use, and dynamic environment where they can control their finances from creating the bank to issuing activity statements. It is developed in JavaScript language.
 
    ## Functionalities:
 
@@ -25,14 +25,16 @@ When logging into an account with its respective password, a validation token wi
 - Issue bank statement
 - Reactivate account
 
-   ## Status do Projeto
+## Project status
 
-Este projeto está atualmente em desenvolvimento ativo. Estamos constantemente trabalhando nele para torná-lo ainda melhor.
-Foi desenvolvido todo o escopo BackEnd, no momento esta sendo desenvolvido a parte FrontEnd para comunicar com a Back.
+This project is currently in active development. I'm constantly working on it to make it even better.
+The entire BackEnd scope was developed, the FrontEnd part is currently being developed to communicate with the Back.
 
-## Código-fonte
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a85c3b87-c9e8-45ec-abfa-304af174db14) 
+## Source code
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/20c2af76-be44-4c66-8822-873735e478bd)
+
 
 `index.js`: O ponto de entrada do servidor Express.
 

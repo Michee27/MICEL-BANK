@@ -14,7 +14,8 @@ const {
 const {
     informations,
     validateAccount,
-    validateBalance
+    validateBalance,
+    checkAccountStatus
 } = require("./middlers/validations");
 
 const authenticateUser = require("./middlers/authentication");
@@ -33,6 +34,7 @@ route.post("/signup", informations(personalData), validateAccount, registerAccou
 route.post("/login", userLogin)
 
 route.use(authenticateUser)
+route.use(checkAccountStatus)
 route.put("/account/user", informations(personalData), validateAccount, updateUser)
 route.get("/user", validateBalance, userDetail)
 route.delete("/delete/account", validateBalance, deleteAccount)

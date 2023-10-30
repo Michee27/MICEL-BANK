@@ -38,6 +38,12 @@ const userLogin = async (request, answer) => {
     try {
         const findUser = await knex("usuario").where("email", email)
 
+        if (findUser[0].ativo === false) {
+            return answer.status(400).json({
+                message: "User inactive"
+            })
+        }
+
         if (findUser.length < 1) {
             return answer.status(400).json({
                 mensagem: "Invalid email username and/or password."
@@ -120,23 +126,23 @@ const userDetail = async (request, answer) => {
 
 const deleteAccount = async (request, answer) => {
     try {
-        if (parseFloat(request.userBalance.total_amount) !== 0) {
+        if (parseFloat(request.userBalance.total_amount) > 0) {
             return answer.status(400).json({
                 message: "The account can only be removed if the balance is zero!"
             })
         }
 
-        const deleteUser = await knex("usuario").del()
-            .where("id", request.foundUser.id).debug()
+        const deactivateUser = await knex("usuario")
+            .where("id", request.foundUser.id)
+            .update({ ativo: false });
 
         return answer.status(201).json({
             message: "account successfully deleted"
         })
 
     } catch (error) {
-        console.log(error)
-        return answer.status(404).json({
-            message: "Internal server error"
+        return answer.status(500).json({
+            message: error.message
         })
     }
 }

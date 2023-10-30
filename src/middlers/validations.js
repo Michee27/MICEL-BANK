@@ -46,10 +46,29 @@ const validateBalance = async (request, answer, next) => {
             .where("user_id", request.foundUser.id)
             .sum("balance as total_amount")
             .first()
-        request.userBalance = userBalance
 
     } catch (error) {
         console.log(error)
+        return answer.status(404).json({
+            message: "Internal server error"
+        })
+    }
+    next()
+}
+
+const checkAccountStatus = async (request, answer, next) => {
+
+    try {
+        const userStatus = await knex("usuario")
+            .where("id", request.foundUser.id)
+
+        if (userStatus[0].ativo === false) {
+            return answer.status(400).json({
+                message: "User inactive"
+            })
+        }
+
+    } catch (error) {
         return answer.status(404).json({
             message: "Internal server error"
         })
@@ -61,6 +80,7 @@ const validateBalance = async (request, answer, next) => {
 module.exports = {
     informations,
     validateAccount,
-    validateBalance
+    validateBalance,
+    checkAccountStatus
 }
 

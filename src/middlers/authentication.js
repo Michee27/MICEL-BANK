@@ -3,11 +3,11 @@ const knex = require("../config/connection")
 const secretKey = require("../config/secretKey")
 
 
-const authenticateUser = async (request, answer, next) => {
-    const { authorization } = request.headers
+const authenticateUser = async (req, res, next) => {
+    const { authorization } = req.headers
 
     if (!authorization) {
-        return answer.status(401).json({
+        return res.status(401).json({
             message: "Not authorized"
         })
     }
@@ -20,15 +20,15 @@ const authenticateUser = async (request, answer, next) => {
         const findId = await knex("usuario").where("id", id)
 
         if (findId.length < 1) {
-            return answer.status(401).json({
+            return res.status(401).json({
                 message: "Not authorized"
             })
         }
 
-        request.foundUser = findId[0]
+        req.foundUser = findId[0]
         next()
     } catch (error) {
-        return answer.status(401).json({ message: "Not authorized" })
+        return res.status(401).json({ message: "Not authorized" })
     }
 }
 

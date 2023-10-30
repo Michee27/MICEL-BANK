@@ -17,7 +17,8 @@ const {
     validateBalance,
     checkAccountStatus,
     checkCPF,
-    checkEmail
+    checkEmail,
+    checkRegiser
 } = require("./middlers/validations");
 
 const authenticateUser = require("./middlers/authentication");
@@ -33,8 +34,8 @@ const route = express()
 
 route.get("/", welcomePage)
 route.post("/signup", informations(personalData), checkCPF, checkEmail, registerAccount)
-route.post("/login", userLogin)
-route.post("/reactivate/account", reactivateAccount)
+route.post("/login", checkRegiser, userLogin)
+route.post("/reactivate/account", checkRegiser, reactivateAccount)
 
 route.use(authenticateUser)
 route.use(checkAccountStatus)

@@ -1,31 +1,40 @@
 # MICEL BANK
 
-Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.
+Welcome to MICEL Bank! This is a prototype of a digital bank project.
 
-## Descrição
+   ## Descrição:
 
-Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso clientes um ambiente seguro, de uso fácil, e dinâmica onde possa controlar suas finanças desde a criação do banco até a emissão de extrato das atividades. Ele é desenvolvido em Linguagem de javascript.
+The bank is a RESTful API and its main objective is to offer our customers a safe, easy-to-use, and dynamic environment where they can control their finances from creating the bank to issuing activity statements. It is developed in JavaScript language.
 
-## Funcionalidades:
+   ## Functionalities:
 
--   Criar conta bancária
--   Listar contas bancárias
--   Atualizar os dados do usuário da conta bancária
--   Excluir uma conta bancária
--   Depósitar em uma conta bancária
--   Sacar de uma conta bancária
--   Transferir valores entre contas bancárias
--   Consultar saldo da conta bancária
--   Emitir extrato bancário
+The first 3 API endpoints are to initiate the customer's steps
 
-   ## Status do Projeto
+- Welcome page
+- Create bank account
+- Log into account
 
-Este projeto está atualmente em desenvolvimento ativo. Estamos constantemente trabalhando nele para torná-lo ainda melhor.
-Foi desenvolvido todo o escopo BackEnd, no momento esta sendo desenvolvido a parte FrontEnd para comunicar com a Back.
+When logging into an account with its respective password, a validation token will be generated, and only through this token, informing through the header that it will be possible to access an account
 
-## Código-fonte
+- Update bank account user details
+- Delete a bank account
+- Deposit into a bank account
+- Withdraw from a bank account
+- Transfer amounts between bank accounts
+- Check bank account balance
+- Issue bank statement
+- Reactivate account
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a85c3b87-c9e8-45ec-abfa-304af174db14) 
+## Project status
+
+This project is currently in active development. I'm constantly working on it to make it even better.
+The entire BackEnd scope was developed, the FrontEnd part is currently being developed to communicate with the Back.
+
+
+## Source code
+
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/20c2af76-be44-4c66-8822-873735e478bd)
+
 
 `index.js`: O ponto de entrada do servidor Express.
 

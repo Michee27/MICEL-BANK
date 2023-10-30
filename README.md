@@ -72,19 +72,19 @@ A development tool that monitors changes to files in your project directory and 
 After cloning this repository, you can install all dependencies and devDependencies using the command: npm install
 
 ### bcrypt:
-A library used for securely hashing passwords. It's a common choice in Node.js applications for securely storing user passwords by hashing and salting them. Unlike nodemon, which is used during development, bcrypt is generally a dependency needed for the application to function securely. Therefore, it is typically added as a regular dependency rather than a development dependency.
+A library used for securely hashing passwords. It's a common choice in Node.js applications for securely storing user passwords by hashing and salting them. Unlike nodemon, which is used during development, bcrypt is generally a dependency needed for the application to function securely. Therefore, it is typically added as a regular dependency rather than a development dependency. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install bcrypt`
 
 ### dotenv:
-A Node.js library used for managing environment variables in your application. It's particularly useful for storing configuration details, such as API keys, database credentials, or any sensitive information, outside of your codebase.
+A Node.js library used for managing environment variables in your application. It's particularly useful for storing configuration details, such as API keys, database credentials, or any sensitive information, outside of your codebase. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install dotenv`
 
 ### jsonwebtoken:
-A library used for creating and verifying JSON Web Tokens (JWT) in Node.js applications. JWTs are commonly employed for user authentication and data exchange between parties in a secure and compact manner. Similar to bcrypt and dotenv, jsonwebtoken is a crucial component for security and user authentication in an application and is typically added as a regular dependency, not a development dependency.
+A library used for creating and verifying JSON Web Tokens (JWT) in Node.js applications. JWTs are commonly employed for user authentication and data exchange between parties in a secure and compact manner. Similar to bcrypt and dotenv, jsonwebtoken is a crucial component for security and user authentication in an application and is typically added as a regular dependency, not a development dependency. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install jsonwebtoken`
 
 ### knex:
-A SQL query builder for Node.js which is used to interact with relational databases. It allows developers to write database queries using JavaScript and provides a clean interface to construct SQL queries
+A SQL query builder for Node.js which is used to interact with relational databases. It allows developers to write database queries using JavaScript and provides a clean interface to construct SQL queries. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install knex`
 
 ### pg: 
-The PostgreSQL client for Node.js. It is the official PostgreSQL client for the Node.js ecosystem, providing an interface for Node.js applications to communicate with a PostgreSQL database.
+The PostgreSQL client for Node.js. It is the official PostgreSQL client for the Node.js ecosystem, providing an interface for Node.js applications to communicate with a PostgreSQL database. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install pg`
 
 ## Installation
 
@@ -112,7 +112,7 @@ Access the bank's home page via their URL: `/`. Accessing insomnia with `http://
 
 ### Create bank account
 
-Create a bank account with a user's information. The `/signup` endpoint is used to create a bank account, generating a unique number to identify the account (account number) and always starting with a zero balance. Accessing insomnia with `http://localhost:3000/sihnup`.
+Create a bank account with a user's information. The `/signup` endpoint is used to create a bank account, generating a unique number to identify the account (account number) and always starting with a zero balance.
 If the CPF and email data have already been registered in another account, an error message will be returned.
 
 The body must receive an object with the following properties (respecting these names):
@@ -127,33 +127,37 @@ The body must receive an object with the following properties (respecting these 
 
 ### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6382cc7e-1de4-40f4-bb57-6474b31f015a)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5c4e1418-e5d5-4293-9140-de4c4714f3e6)
 
 
 
-### Atualizar usuário de uma conta
+### Login to an account
+Log in to a bank account with a user's information. Entering the email and password when accessing. The `/login` endpoint is used to access a bank account, when logging into the account, a validation token will be generated that will be necessary to inform whenever any functionality of the respective account is accessed.
 
-Atualizar uma conta bancária com informações de um usuário. O endpoint `/contas/:numeroConta/usuario` serve para atualizar uma conta bancária, usando o mesmo número da identificação da conta (número da conta) e iniciando sempre com saldo zero. Acessando a insomnia com `http://localhost:3000/contas/:numeroConta/usuario`.
-Se os dados do CPF e do e-mail já estiverem sido cadastrados em outra conta, uma mensagem de erro será retornada.
+### In case of successful transaction     :heavy_check_mark:
 
-O corpo (body) deverá receber um objeto com as seguintes propriedades (respeitando estes nomes):
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/ae1efc59-2e0c-4ab9-bc7d-9eb96841bfcc)
 
-    -   nome
-    -   cpf
-    -   data_nascimento
-    -   telefone
+## ATTENTION: *From this endpoint ALL next endpoints will need to provide the token to proceed*
+
+### Update an account user
+
+Update a bank account with a user's information. The endpoint `/account/user` is used to update a bank account, stating in the header the access token as a bearer token. Insomnia will allow access to user data that can be updated
+If the CPF and email data have already been registered in another account, an error message will be returned.
+
+The body must receive an object with the following properties (respecting these names):
+
+    -   name
+    -   CPF
+    -   date_of_birth
+    -   phone
     -   email
-    -   senha
+    -   password
+** All fields are mandatory!!
 
-### Em caso de transação bem sucedida      :heavy_check_mark:
+### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/67ad60e3-3eca-4a83-938e-81e798251c83)
-
-### Em caso de informar um usuário inexistente     :x:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/a678e314-6fae-473d-a4b1-8b38b3315b6f)
-
-
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/7c68af83-22f2-4f53-b65d-712890a190cd)
 
 ### Excluir Conta
 ####  

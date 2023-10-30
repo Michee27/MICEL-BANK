@@ -86,56 +86,49 @@ A SQL query builder for Node.js which is used to interact with relational databa
 ### pg: 
 The PostgreSQL client for Node.js. It is the official PostgreSQL client for the Node.js ecosystem, providing an interface for Node.js applications to communicate with a PostgreSQL database.
 
-## Instalação
+## Installation
 
-Para usar este projeto, siga estas etapas:
+To use this project, follow these steps:
 
-1. Clone o repositório para sua máquina local usando o seguinte comando:
+1. Clone the repository to your local machine using the following command:
 
-- [ ] Faça o fork desse repositório para o seu GitHub
-- [ ] Clone o projeto em sua máquina
-- [ ] Uma vez clonado em sua máquina, realize a instalação das dependências citadas acima e inicie o servidor usando:  
+- [ ] Fork this repository to your GitHub
+- [ ] Clone the project on your machine
+- [ ] Once cloned on your machine, install the dependencies mentioned above and start the server using:
 ```javascript
 npm run dev
 ```
-- [ ] Utilize a insomnia para testar as funções
+- [ ] Use insomnia to test functions
 
-## Como testar
+## How to test
 
-### Listar contas bancárias
-Listar todas as contas cadastradas, incluindo todas as suas transações pela sua URL: `/contas/:senha_banco` e os parâmetros informando a senha pela URL. Acessando a insomnia com `http://localhost:3000/contas?senha_banco=MICEL123Bank`. Se a senha estiver incorreta ou a conta informada não existir, uma mensagem de erro será retornada. 
+### Wlcome page
+Access the bank's home page via their URL: `/`. Accessing insomnia with `http://localhost:3000/`, where it will be possible to log in to an account or create an account
 
-### Erros de transação     :x:
+### Successful transaction   :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/55930b4b-c93a-4a1d-ba30-ac584bede40d)
-
-### Transação bem sucedida   :heavy_check_mark:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/d120ca86-1c0b-4c20-a949-7195f035968c)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/c1243235-cb1a-4581-b754-b52cf74ec77e)
 
 
-### Criar conta bancária
+### Create bank account
 
-Criar uma conta bancária com informações de um usuário. O endpoint `/contas` serve para criar uma conta bancária, gerando um número único para identificação da conta (número da conta) e iniciando sempre com saldo zero. Acessando a insomnia com `http://localhost:3000/contas`.
-Se os dados do CPF e do e-mail já estiverem sido cadastrados em outra conta, uma mensagem de erro será retornada.
+Create a bank account with a user's information. The `/signup` endpoint is used to create a bank account, generating a unique number to identify the account (account number) and always starting with a zero balance. Accessing insomnia with `http://localhost:3000/sihnup`.
+If the CPF and email data have already been registered in another account, an error message will be returned.
 
-O corpo (body) deverá receber um objeto com as seguintes propriedades (respeitando estes nomes):
+The body must receive an object with the following properties (respecting these names):
 
-    -   nome
-    -   cpf
-    -   data_nascimento
-    -   telefone
+    -   name
+    -   CPF
+    -   date_of_birth
+    -   phone
     -   email
-    -   senha
-** Todos os campos são obrigatório!!
+    -   password
+** All fields are mandatory!!
 
-### Em caso de transação bem sucedida     :heavy_check_mark:
+### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5cddea00-9926-4c8f-9ef1-bb309807a077)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6382cc7e-1de4-40f4-bb57-6474b31f015a)
 
-### Em caso de duplicação de usuário     :x:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/66168312-0595-492b-916b-d630e2f7dab3)
 
 
 ### Atualizar usuário de uma conta

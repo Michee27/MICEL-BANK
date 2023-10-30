@@ -106,17 +106,30 @@ const updateUser = async (request, answer) => {
 const userDetail = async (request, answer) => {
 
     try {
-        const user = {
+
+        let user = {}
+
+        if (request.userBalance.total_amount === null) {
+            user = {
+                id: request.foundUser.id,
+                name: request.foundUser.name,
+                email: request.foundUser.email,
+                balance: 0
+            }
+            return answer.status(201).json(user)
+        }
+
+        user = {
             id: request.foundUser.id,
             name: request.foundUser.name,
             email: request.foundUser.email,
             balance: parseFloat(request.userBalance.total_amount)
         }
 
-        answer.status(200).json(user)
+        return answer.status(201).json(user)
 
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
         return answer.status(404).json({
             message: "Internal server error"
         })
@@ -147,11 +160,45 @@ const deleteAccount = async (request, answer) => {
     }
 }
 
+const reactivateAccount = async (request, answer) => {
+    const { email, status } = request.body
+
+    try {
+        const validateEmail = await knex("usuario").where("email", email)
+        if (validateEmail.length === 0) {
+            return answer.status(400).json({
+                mensagem: "Account does not exist with the email entered!"
+            })
+        }
+
+        if (!status || status !== "activate") {
+            return answer.status(401).json({
+                message: "Transaction not accepted"
+            })
+        }
+
+        const activateUser = await knex("usuario")
+            .where("email", email)
+            .update({ ativo: true })
+
+        return answer.status(201).json({
+            message: "account reactivated successfully"
+        })
+
+    } catch (error) {
+        return answer.status(500).json({
+            message: error.message
+        })
+    }
+
+}
+
 module.exports = {
     welcomePage,
     userLogin,
     registerAccount,
     updateUser,
     userDetail,
-    deleteAccount
+    deleteAccount,
+    reactivateAccount
 }

@@ -12,21 +12,14 @@ const informations = (arrayData) => (request, answer, next) => {
     next()
 }
 
-const validateAccount = async (request, answer, next) => {
-    const { cpf, email } = request.body
+const checkCPF = async (request, answer, next) => {
+    const { cpf } = request.body
 
     try {
         const validateCPF = await knex("usuario").where("cpf", cpf)
         if (validateCPF.length > 0) {
             return answer.status(400).json({
                 mensagem: "An account already exists with the CPF entered!"
-            })
-        }
-
-        const validateEmail = await knex("usuario").where("email", email)
-        if (validateEmail.length > 0) {
-            return answer.status(400).json({
-                mensagem: "An account already exists with the email entered!"
             })
         }
 
@@ -39,6 +32,26 @@ const validateAccount = async (request, answer, next) => {
     next()
 }
 
+const checkEmail = async (request, answer, next) => {
+    const { email } = request.body
+
+    try {
+
+        const validateEmail = await knex("usuario").where("email", email)
+        if (validateEmail.length > 0) {
+            return answer.status(400).json({
+                mensagem: "An account already exists with the email entered!"
+            })
+        }
+
+    } catch (error) {
+        console.log(error.message)
+        return answer.status(404).json({
+            message: "Internal server error"
+        })
+    }
+}
+
 const validateBalance = async (request, answer, next) => {
 
     try {
@@ -46,6 +59,8 @@ const validateBalance = async (request, answer, next) => {
             .where("user_id", request.foundUser.id)
             .sum("balance as total_amount")
             .first()
+
+        request.userBalance = userBalance
 
     } catch (error) {
         console.log(error)
@@ -59,10 +74,10 @@ const validateBalance = async (request, answer, next) => {
 const checkAccountStatus = async (request, answer, next) => {
 
     try {
-        const userStatus = await knex("usuario")
-            .where("id", request.foundUser.id)
+        /*const userStatus = await knex("usuario")
+            .where("id", request.foundUser.id)*/
 
-        if (userStatus[0].ativo === false) {
+        if (request.foundUser.ativo === false) {
             return answer.status(400).json({
                 message: "User inactive"
             })
@@ -79,7 +94,8 @@ const checkAccountStatus = async (request, answer, next) => {
 
 module.exports = {
     informations,
-    validateAccount,
+    checkCPF,
+    checkEmail,
     validateBalance,
     checkAccountStatus
 }

@@ -8,14 +8,16 @@ const {
     userLogin,
     updateUser,
     userDetail,
-    deleteAccount
+    deleteAccount,
+    reactivateAccount
 } = require("./controllers/user");
 
 const {
     informations,
-    validateAccount,
     validateBalance,
-    checkAccountStatus
+    checkAccountStatus,
+    checkCPF,
+    checkEmail
 } = require("./middlers/validations");
 
 const authenticateUser = require("./middlers/authentication");
@@ -30,12 +32,13 @@ const { deposit,
 const route = express()
 
 route.get("/", welcomePage)
-route.post("/signup", informations(personalData), validateAccount, registerAccount)
+route.post("/signup", informations(personalData), checkCPF, checkEmail, registerAccount)
 route.post("/login", userLogin)
+route.post("/reactivate/account", reactivateAccount)
 
 route.use(authenticateUser)
 route.use(checkAccountStatus)
-route.put("/account/user", informations(personalData), validateAccount, updateUser)
+route.put("/account/user", informations(personalData), checkCPF, checkEmail, updateUser)
 route.get("/user", validateBalance, userDetail)
 route.delete("/delete/account", validateBalance, deleteAccount)
 

@@ -33,38 +33,58 @@ The entire BackEnd scope was developed, the FrontEnd part is currently being dev
 
 ## Source code
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/20c2af76-be44-4c66-8822-873735e478bd)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/ef0e28d2-4d0c-45da-8493-13a42a404d35)
 
 
-`index.js`: O ponto de entrada do servidor Express.
 
-`banco.js`: Processar as solicitações do cliente, interagir com o `bancodedados` e retornar uma resposta adequada ao cliente.
+`index.js`: The Express server entry point.
 
-`intermediarios.js`: Processa e manipula as solicitações HTTP para verificação dos dados.
+`roteador.js`: Defines the API routes and their controllers.
 
-`bancodedados.js`: Armazena os dados do banco e as funcionalidades relacionadas ao banco.
+`middlers`: Contains file menus for validating user data and performing user authentication.
+   
+`controllers`: where the main endpoints are located and perform tasks coming from my routes
+   
+ `config`: Folder reserved for configuring my variables, my connection to the database and storing my secret password.
+ 
+`database`: storage of my database creation code and its tables.
 
-`roteador.js`: Define as rotas da API e seus controladores.
 
-## Tecnologias usadas
+
+## Technologies used
 
 ### JavaScript:
-Linguagem de programação de alto nível amplamente utilizada para desenvolvimento web. Ela é conhecida por ser uma linguagem de script, o que significa que você pode escrever código JavaScript diretamente em páginas da web para torná-las interativas e dinâmicas.
+High-level programming language widely used for web development. It is known for being a scripting language, which means you can write JavaScript code directly on web pages to make them interactive and dynamic.
 
 ### Node.js:
-Ambiente de tempo de execução (runtime) de código aberto baseado na engine V8 do Google Chrome. Ele permite que os desenvolvedores utilizem JavaScript para criar aplicativos de servidor, o que é um desvio do uso tradicional do JavaScript no lado do cliente, que é executado nos navegadores.
+Open source runtime environment based on Google Chrome's V8 engine. It allows developers to use JavaScript to create server-side applications, which is a departure from the traditional use of client-side JavaScript, which runs in browsers.
 
-## Dependências:
+## Dependencies:
 
 ### date-fns: 
-Uma biblioteca JavaScript usada para trabalhar com datas e horários. Ela fornece funções úteis para análise, manipulação e formatação de datas. Abra o terminal ou prompt de comando, navegue até o diretório do seu projeto e execute o seguinte comando: `npm install date-fns`
+A JavaScript library used to work with dates and times. It provides useful functions for analyzing, manipulating and formatting dates. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install date-fns`
 
 ### express.js: 
-O framework web "Express.js", usado para criar aplicativos web e APIs em Node.js. É amplamente utilizado para criar servidores web e simplificar o desenvolvimento web em Node.js. Abra o terminal ou prompt de comando, navegue até o diretório do seu projeto e execute o seguinte comando: `npm install express`
+The "Express.js" web framework, used to create web applications and APIs in Node.js. It is widely used to create web servers and simplify web development in Node.js. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install express`
 
 ### nodemon: 
-Uma ferramenta de desenvolvimento que monitora alterações em arquivos no diretório do seu projeto e reinicia automaticamente o servidor sempre que há uma alteração. É frequentemente usado para desenvolvimento em Node.js para economizar tempo na reinicialização do servidor durante o desenvolvimento. As dependências são bibliotecas ou pacotes necessários para o funcionamento do seu aplicativo, enquanto as devDependencies são pacotes usados apenas durante o desenvolvimento, como no caso do nodemon, que ajuda a manter o servidor atualizado durante o desenvolvimento. Abra o terminal ou prompt de comando, navegue até o diretório do seu projeto e execute o seguinte comando: `npm install -D nodemon`.
-Após clonar este repositório, você pode instalar todas as dependências e devDependencies usando o comando: npm install
+A development tool that monitors changes to files in your project directory and automatically restarts the server whenever there is a change. It is often used for Node.js development to save time on server restarts during development. Dependencies are libraries or packages required for your application to function, while devDependencies are packages used only during development, as in the case of nodemon, which helps keep the server updated during development. Open the terminal or command prompt, navigate to your project directory and run the following command: `npm install -D nodemon`.
+After cloning this repository, you can install all dependencies and devDependencies using the command: npm install
+
+### bcrypt:
+A library used for securely hashing passwords. It's a common choice in Node.js applications for securely storing user passwords by hashing and salting them. Unlike nodemon, which is used during development, bcrypt is generally a dependency needed for the application to function securely. Therefore, it is typically added as a regular dependency rather than a development dependency.
+
+### dotenv:
+A Node.js library used for managing environment variables in your application. It's particularly useful for storing configuration details, such as API keys, database credentials, or any sensitive information, outside of your codebase.
+
+### jsonwebtoken:
+A library used for creating and verifying JSON Web Tokens (JWT) in Node.js applications. JWTs are commonly employed for user authentication and data exchange between parties in a secure and compact manner. Similar to bcrypt and dotenv, jsonwebtoken is a crucial component for security and user authentication in an application and is typically added as a regular dependency, not a development dependency.
+
+### knex:
+A SQL query builder for Node.js which is used to interact with relational databases. It allows developers to write database queries using JavaScript and provides a clean interface to construct SQL queries
+
+### pg: 
+The PostgreSQL client for Node.js. It is the official PostgreSQL client for the Node.js ecosystem, providing an interface for Node.js applications to communicate with a PostgreSQL database.
 
 ## Instalação
 

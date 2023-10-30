@@ -1,22 +1,29 @@
 # MICEL BANK
 
-Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.
+Welcome to MICEL Bank! This is a prototype of a digital bank project.
 
-## Descrição
+   ## Descrição:
 
-Nosso banco é uma RESTful API e tem com principal objetivo oferecer ao nosso clientes um ambiente seguro, de uso fácil, e dinâmica onde possa controlar suas finanças desde a criação do banco até a emissão de extrato das atividades. Ele é desenvolvido em Linguagem de javascript.
+Our bank is a RESTful API and its main objective is to offer our customers a safe, easy-to-use, and dynamic environment where they can control their finances from creating the bank to issuing activity statements. It is developed in JavaScript language.
 
-## Funcionalidades:
+   ## Functionalities:
 
--   Criar conta bancária
--   Listar contas bancárias
--   Atualizar os dados do usuário da conta bancária
--   Excluir uma conta bancária
--   Depósitar em uma conta bancária
--   Sacar de uma conta bancária
--   Transferir valores entre contas bancárias
--   Consultar saldo da conta bancária
--   Emitir extrato bancário
+The first 3 API endpoints are to initiate the customer's steps
+
+- Welcome page
+- Create bank account
+- Log into account
+
+When logging into an account with its respective password, a validation token will be generated, and only through this token, informing through the header that it will be possible to access an account
+
+- Update bank account user details
+- Delete a bank account
+- Deposit into a bank account
+- Withdraw from a bank account
+- Transfer amounts between bank accounts
+- Check bank account balance
+- Issue bank statement
+- Reactivate account
 
    ## Status do Projeto
 

@@ -99,7 +99,6 @@ const updateUser = async (req, res) => {
             message: "Internal server error"
         })
     }
-
 }
 
 const userDetail = async (req, res) => {

@@ -17,6 +17,7 @@ const checkCPF = async (req, res, next) => {
 
     try {
         const validateCPF = await knex("usuario").where("cpf", cpf)
+
         if (validateCPF.length > 0) {
             return res.status(400).json({
                 mensagem: "An account already exists with the CPF entered!"
@@ -35,7 +36,6 @@ const checkEmail = async (req, res, next) => {
     const { email } = req.body
 
     try {
-
         const validateEmail = await knex("usuario").where("email", email)
         if (validateEmail.length > 0) {
             return res.status(400).json({
@@ -61,6 +61,7 @@ const checkRegiser = async (req, res, next) => {
                 mensagem: "Account does not exist"
             })
         }
+
     } catch (error) {
         return res.status(500).json({
             message: error.message
@@ -110,9 +111,9 @@ const checkId = async (req, res, next) => {
     try {
         const receiverId = await knex("usuario").where("id", receiver_account_id)
 
-        if (!receiverId) {
+        if (receiverId.length === 0) {
             return res.status(400).json({
-                mensagem: "Account does not exist"
+                mensagem: "Target account does not exist"
             })
         }
 
@@ -121,6 +122,7 @@ const checkId = async (req, res, next) => {
                 message: "Target user disabled"
             })
         }
+
     } catch (error) {
         return res.status(500).json({
             message: error.message

@@ -46,7 +46,7 @@ route.delete("/delete/account", validateBalance, deleteAccount)
 
 route.post("/account/deposit", informations(checkAmount), deposit)
 route.post("/account/withdraw", informations(checkAmount), validateBalance, withdraw)
-route.post("/account/transfer", informations(checkAmount), validateBalance, checkId, transfer)
+route.post("/account/transfer", informations(checkAmount), checkId, validateBalance, transfer)
 route.get("/account/balance", validateBalance, detailBalance)
 route.get("/account/statement", accountStatement)
 

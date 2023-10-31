@@ -98,7 +98,7 @@ const transfer = async (req, res) => {
                 "amount": amount,
                 "shipping_account_id": req.foundUser.id,
                 "receiver_account_id": receiver_account_id
-            })
+            }).returning("*")
 
         const balanceUpdateShipper = await knex("saldo")
             .insert({
@@ -117,6 +117,7 @@ const transfer = async (req, res) => {
             receiver_account_id: sendTransfer[0].receiver_account_id,
             transaction_date: sendTransfer[0].transaction_date
         }
+
         return res.status(201).json(detail)
 
     } catch (error) {

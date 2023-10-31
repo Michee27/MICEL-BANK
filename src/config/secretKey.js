@@ -1,1 +1,1 @@
-module.exports = "keyXXLOfMybank"
+module.exports = process.env.SECRET_KEY

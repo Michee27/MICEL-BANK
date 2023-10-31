@@ -25,9 +25,8 @@ const registerAccount = async (req, res) => {
             message: "Account created successfully"
         })
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -73,9 +72,8 @@ const userLogin = async (req, res) => {
         return res.status(200).json(backUser)
 
     } catch (error) {
-        console.log(error.message)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -94,9 +92,8 @@ const updateUser = async (req, res) => {
 
         return res.status(201).json(foundUserID[0])
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -127,9 +124,8 @@ const userDetail = async (req, res) => {
         return res.status(201).json(user)
 
     } catch (error) {
-        console.log(error.message)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 

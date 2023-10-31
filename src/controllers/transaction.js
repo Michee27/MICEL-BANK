@@ -31,9 +31,8 @@ const deposit = async (req, res) => {
         return res.status(200).json(detail)
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -71,9 +70,8 @@ const withdraw = async (req, res) => {
         return res.status(200).json(detail)
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -122,9 +120,8 @@ const transfer = async (req, res) => {
         return res.status(201).json(detail)
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -136,9 +133,8 @@ const detailBalance = async (req, res) => {
         return res.status(200).json(req.userBalance)
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 }
@@ -167,9 +163,8 @@ const accountStatement = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
 

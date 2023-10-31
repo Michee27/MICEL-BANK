@@ -24,9 +24,8 @@ const checkCPF = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
     next()
@@ -45,9 +44,8 @@ const checkEmail = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log(error.message)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
     next()
@@ -64,9 +62,8 @@ const checkRegiser = async (req, res, next) => {
             })
         }
     } catch (error) {
-        console.log(error.message)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
     next()
@@ -83,9 +80,8 @@ const validateBalance = async (req, res, next) => {
         req.userBalance = userBalance
 
     } catch (error) {
-        console.log(error)
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
         })
     }
     next()
@@ -101,8 +97,33 @@ const checkAccountStatus = async (req, res, next) => {
         }
 
     } catch (error) {
-        return res.status(404).json({
-            message: "Internal server error"
+        return res.status(500).json({
+            message: error.message
+        })
+    }
+    next()
+}
+
+const checkId = async (req, res, next) => {
+    const { receiver_account_id } = req.body
+
+    try {
+        const receiverId = await knex("usuario").where("id", receiver_account_id)
+
+        if (!receiverId) {
+            return res.status(400).json({
+                mensagem: "Account does not exist"
+            })
+        }
+
+        if (receiverId.status === false) {
+            return res.status(400).json({
+                message: "Target user disabled"
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
         })
     }
     next()
@@ -115,6 +136,7 @@ module.exports = {
     checkEmail,
     checkRegiser,
     validateBalance,
-    checkAccountStatus
+    checkAccountStatus,
+    checkId
 }
 

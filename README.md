@@ -1,5 +1,5 @@
-![imagem](https://o.remove.bg/downloads/cecb3955-36dc-4eee-9c02-975ddc0a7e8e/Design_sem_nome__2_-removebg-preview.png)
 
+![imagem](https://github.com/Michee27/MICEL-BANK/assets/140012117/ff3e10e9-3883-47de-8d1f-6e6867e8574d)
 
    ## Descrição:
 

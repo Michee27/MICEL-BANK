@@ -131,8 +131,7 @@ The body must receive an object with the following properties (respecting these 
 
 ### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5c4e1418-e5d5-4293-9140-de4c4714f3e6)
-
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/25b55e86-4ce8-4302-853b-d81683562f6b)
 
 
 ### Login to an account
@@ -140,7 +139,8 @@ Log in to a bank account with a user's information. Entering the email and passw
 
 ### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/ae1efc59-2e0c-4ab9-bc7d-9eb96841bfcc)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/452c7e75-7ea7-4e8b-80ca-acace6cce4c1)
+
 
 ## ATTENTION: *From this endpoint ALL next endpoints will need to provide the token to proceed*
 
@@ -161,7 +161,14 @@ The body must receive an object with the following properties (respecting these 
 
 ### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/7c68af83-22f2-4f53-b65d-712890a190cd)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/941142ed-2244-48b5-a488-7abc5c150928)
+
+### Detail User
+The `/user` endpoint has the functionality to detail a user, bringing all the relevant information to the respective bank account, as long as its validation token is passed in the header. Accessing insomnia with [https://micel-bank.onrender.com/user](https://micel-bank.onrender.com/user).
+
+### In case of successful transaction     :heavy_check_mark:
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5e07de45-dd05-47b0-a9b4-9449014c5368)
+
 
 ### Excluir Conta
 ####  

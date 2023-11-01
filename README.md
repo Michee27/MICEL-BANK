@@ -87,6 +87,7 @@ The PostgreSQL client for Node.js. It is the official PostgreSQL client for the 
 
 ## Installation
 
+You can contribute to this project by cloning it on your machine and carrying out tests
 To use this project, follow these steps:
 
 1. Clone the repository to your local machine using the following command:
@@ -101,8 +102,12 @@ npm run dev
 
 ## How to test
 
-### Wlcome page
-Access the bank's home page via their URL: `/`. Accessing insomnia with `http://localhost:3000/`, where it will be possible to log in to an account or create an account
+To test this project, you will need to use software to generate HTTP requests. I used insomnia to carry out these tests.
+This project was deployed by render, once you have the testing software installed, you can access the link [https://micel-bank.onrender.com/](https://micel-bank.onrender.com/)
+ to test the endpoints
+
+### Welcome page
+Access the bank's home page via their URL: `/`. Accessing insomnia with [https://micel-bank.onrender.com/](https://micel-bank.onrender.com/), where it will be possible to log in to an account or create an account
 
 ### Successful transaction   :heavy_check_mark:
 
@@ -111,7 +116,7 @@ Access the bank's home page via their URL: `/`. Accessing insomnia with `http://
 
 ### Create bank account
 
-Create a bank account with a user's information. The `/signup` endpoint is used to create a bank account, generating a unique number to identify the account (account number) and always starting with a zero balance.
+Create a bank account with a user's information. The [https://micel-bank.onrender.com/signup](https://micel-bank.onrender.com/signup) endpoint is used to create a bank account, generating a unique number to identify the account (account number) and always starting with a zero balance.
 If the CPF and email data have already been registered in another account, an error message will be returned.
 
 The body must receive an object with the following properties (respecting these names):
@@ -131,7 +136,7 @@ The body must receive an object with the following properties (respecting these 
 
 
 ### Login to an account
-Log in to a bank account with a user's information. Entering the email and password when accessing. The `/login` endpoint is used to access a bank account, when logging into the account, a validation token will be generated that will be necessary to inform whenever any functionality of the respective account is accessed.
+Log in to a bank account with a user's information. Entering the email and password when accessing. The [https://micel-bank.onrender.com/lgin](https://micel-bank.onrender.com/login) endpoint is used to access a bank account, when logging into the account, a validation token will be generated that will be necessary to inform whenever any functionality of the respective account is accessed.
 
 ### In case of successful transaction     :heavy_check_mark:
 
@@ -141,7 +146,7 @@ Log in to a bank account with a user's information. Entering the email and passw
 
 ### Update an account user
 
-Update a bank account with a user's information. The endpoint `/account/user` is used to update a bank account, stating in the header the access token as a bearer token. Insomnia will allow access to user data that can be updated
+Update a bank account with a user's information. The endpoint [https://micel-bank.onrender.com/account/user](https://micel-bank.onrender.com/account/user) is used to update a bank account, stating in the header the access token as a bearer token. Insomnia will allow access to user data that can be updated
 If the CPF and email data have already been registered in another account, an error message will be returned.
 
 The body must receive an object with the following properties (respecting these names):

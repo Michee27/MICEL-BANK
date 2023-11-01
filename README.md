@@ -1,6 +1,5 @@
-# MICEL BANK
+![imagem](https://o.remove.bg/downloads/cecb3955-36dc-4eee-9c02-975ddc0a7e8e/Design_sem_nome__2_-removebg-preview.png)
 
-Welcome to MICEL Bank! This is a prototype of a digital bank project.
 
    ## Descrição:
 

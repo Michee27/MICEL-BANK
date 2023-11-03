@@ -245,6 +245,10 @@ It is possible to reactivate an account that was initially deleted or closed, by
 
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/75ab62b8-714a-4913-9ec4-a8bca2f9d959)
 
+
+### Video
+[See endpoint testing video](https://clipchamp.com/watch/aI4rhTA8YiR)
+
 ## Ideias
 
 This project is still under development for constant improvement purposes and we accept suggestions for improvement. Feel free to contact us

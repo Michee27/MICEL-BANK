@@ -167,117 +167,87 @@ The body must receive an object with the following properties (respecting these 
 The `/user` endpoint has the functionality to detail a user, bringing all the relevant information to the respective bank account, as long as its validation token is passed in the header. Accessing insomnia with [https://micel-bank.onrender.com/user](https://micel-bank.onrender.com/user).
 
 ### In case of successful transaction     :heavy_check_mark:
+
 ![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5e07de45-dd05-47b0-a9b4-9449014c5368)
 
 
-### Excluir Conta
-####  
+### Delete account 
 
-O endpoint `/contas/:numeroConta` tem por funcionalidade excluir uma conta bancária, desde que o número de conta informado pela URL seja existente e também a conta em questão esteja sem saldo. Acessando a insomnia com `http://localhost:3000//contas/:numeroConta`.
+The /delete/account endpoint has the functionality to delete a user, with the condition that their balance is zero, informing their validation token in the header. Accessing insomnia with [https://micel-bank.onrender.com/delete/account](https://micel-bank.onrender.com/delete/account).
 
-### Em caso de transação bem sucedida     :heavy_check_mark:
+### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/83f805e8-0938-40f8-a030-e317e231d9dd)
-
-
-### Em caso de informar um usuário inexistente     :x:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/9a986c8c-4ea6-4f53-b18f-db67f260898f)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/82a80e86-e873-477f-9a45-393226932bce)
 
 
 ### Depositar
 #### `/transacoes/depositar`
 
-O endpoint `/transacoes/depositar` serve para realizar um depósito em uma determinada conta, que tem que ser informado pelo corpo (body), somando o valor do depósito ao saldo de uma conta válida e registrar essa transação. Acessando a insomnia com `http://localhost:3000/transacoes/depositar`.
-O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
+The `/account/deposit` endpoint is used to make a deposit to the logged in account. Adding the deposit amount to the respective amount and recording this transaction. Accessing insomnia with [https://micel-bank.onrender.com/account/deposit](https://micel-bank.onrender.com/account/deposit).
+The body must have an object with the deposit value in cents
 
-    -   numero_conta
-    -   valor
+       -   amount
 
-** Todos os campos são obrigatórios
+** All fields are mandatory
 
-### Transação bem sucedida     :heavy_check_mark:
+### In case of successful transaction     :heavy_check_mark:
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/3cdafaa3-fd4e-4baf-90c0-e2a809e2393c)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/363667c3-3437-4bf9-bb8c-26d944806a20)
 
+### Withdraw
 
-### Em caso de informar um valor inválido     :x:
+The `/account/withdraw` endpoint will make a withdrawal of an amount that must be informed in the body of the request. Accessing insomnia with [https://micel-bank.onrender.com/account/withdraw](https://micel-bank.onrender.com/account/withdraw).
+The body must have an object with the value of the loot
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6329dd91-218a-428d-823a-519d0bb0140a)
+    -   amount
 
+** All fields are mandatory
 
-### Sacar
+### In case of successful transaction     :heavy_check_mark:
 
-O endpoint `/transacoes/sacar` fará a realização de um saque de um valor que deve ser informado pelo corpo (body) da requisção, junto com um valor válido e sua respectiva senha e registrar essa transação.  Acessando a insomnia com `http://localhost:3000/transacoes/sacar`.
-O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
-
-    -   numero_conta
-    -   valor
-    -   senha
-
-** Todos os campos são obrigatórios
-
-### Em caso de trancação bem sucedida     :heavy_check_mark:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/913a519a-2ac8-4c0a-b202-a27b47abe47d)
-
-### Em caso de informar uma senha diferente com o cadastrado da conta eem questão     :x:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/5d8229b8-1df7-4b04-80e9-5b293c0e280e)
-
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/380b1590-2c6c-48ec-b868-416321c682c7)
 
 ### Tranferir
 
-O endpoint `/transacoes/transferir` irá permitir a transferência de recursos (dinheiro) de uma conta bancária para outra e registrar essa transação. Acessando a insomnia com `http://localhost:3000/transacoes/trasnferir`.
-O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeitando estes nomes):
+The `/account/transfer` endpoint will allow the transfer of resources (money) from one bank account to another and record this transaction. Accessing insomnia with [https://micel-bank.onrender.com/account/transfer](https://micel-bank.onrender.com/account/transfer).
+The body must have an object with the following properties (respecting these names):
+    -   amount
+    -   receiver_account_id
 
-    -   numero_conta_origem
-    -   numero_conta_destino
-    -   valor
-    -   senha
+** All fields are mandatory
 
-** Todos os campos são obrigatórios
+### In case of successful transaction     :heavy_check_mark:
 
-### Em caso de trancação bem sucedida     :heavy_check_mark:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/903cc066-a1cf-4702-a751-4118586ddad4)
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/45b28f9a-0e59-480d-8b1c-c7cdb5040421)
 
 
-### Informando a senha da conta de origem errado     :x:
+### Balance
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/bb7a7b9f-ce50-4157-a127-00619f1bc1cd)
+The `/account/balance` endpoint will return the balance of a bank account passed through its identification token header. Accessing insomnia with [https://micel-bank.onrender.com/account/balance](https://micel-bank.onrender.com/account/balance).
 
+### In case of successful transaction     :heavy_check_mark:
 
-### Saldo
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/fc60627f-3be9-49e0-bac2-2c7474899f1a)
 
-O endpoint `/contas/saldo` irá retornar o saldo de uma conta bancária passado como argumento no url número da conta e senha da respectica conta. Acessando a insomnia com `http://localhost:3000/contas/saldo?numero_conta=1&senha=12345`.
+### Statement
 
-### Em caso de trancação bem sucedida     :heavy_check_mark:
+The `/contas/statement` endpoint will list the transactions carried out from a specific account, informing the validation token in the header. Accessing insomnia with [https://micel-bank.onrender.com/account/statement](https://micel-bank.onrender.com/account/statement).
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/ca0862d5-2b12-4912-8263-2711c385190b)
+### In case of successful transaction     :heavy_check_mark:
 
-### Informando a conta errada     :x:
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/1ca5ff64-61f5-48e4-8c6c-3277799a6da3)
 
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/6592b9af-77dd-4f1c-82bd-b24a97815ea9)
+### Reactivate Account
 
+It is possible to reactivate an account that was initially deleted or closed, by accessing the endpoint `/reactivate/account`, entering the registration email and the word "activate" in the body of the request. Accessing insomnia with [https://micel-bank.onrender.com/reactivate/account](https://micel-bank.onrender.com/reactivate/account).
 
-### Extrato
-#### 
+### In case of successful transaction     :heavy_check_mark:
 
-O endpoint `/contas/extrato` irá listar as transações realizadas de uma conta específica, passado como argumento no url número da conta e senha da respectica conta. Acessando a insomnia com `http://localhost:3000/contas/extrato?numero_conta=1&senha=12345`.
-
-### Em caso de trancação bem sucedida     :heavy_check_mark:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/4e7c3912-f6f0-4d33-9988-a1edca22b66d)
-
-### Informando a senha errada     :x:
-
-![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/c95e3c33-d674-4dc1-aee0-8c60ef4d47ee)
-
+![image](https://github.com/Michee27/MICEL-BANK/assets/140012117/75ab62b8-714a-4913-9ec4-a8bca2f9d959)
 
 ## Ideias
 
-Este projeto ainda está em desenvolvimento para fins de melhoria constante e aceitamos sugestões de melhoria. Fique a vontade para entrar em contato conosco
+This project is still under development for constant improvement purposes and we accept suggestions for improvement. Feel free to contact us
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/micheecelestin/)
 [![whatsaap](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/5547997768422)

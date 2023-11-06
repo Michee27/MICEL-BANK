@@ -1,7 +1,7 @@
 
 ![imagem](https://github.com/Michee27/MICEL-BANK/assets/140012117/ff3e10e9-3883-47de-8d1f-6e6867e8574d)
 
-   ## Descrição:
+   ## Description:
 
 The bank is a RESTful API and its main objective is to offer our customers a safe, easy-to-use, and dynamic environment where they can control their finances from creating the bank to issuing activity statements. It is developed in JavaScript language.
 

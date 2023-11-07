@@ -24,7 +24,8 @@ const {
 
 const authenticateUser = require("./middlers/authentication");
 
-const { deposit,
+const {
+    deposit,
     withdraw,
     transfer,
     detailBalance,

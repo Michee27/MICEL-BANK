@@ -249,7 +249,7 @@ It is possible to reactivate an account that was initially deleted or closed, by
 ### Video
 [See endpoint testing video](https://clipchamp.com/watch/aI4rhTA8YiR)
 
-## Ideias
+## Ideas
 
 This project is still under development for constant improvement purposes and we accept suggestions for improvement. Feel free to contact us
 

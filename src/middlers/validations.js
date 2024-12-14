@@ -58,11 +58,12 @@ const checkRegiser = async (req, res, next) => {
         const validateEmail = await knex("usuario").where("email", email)
         if (validateEmail.length === 0) {
             return res.status(400).json({
-                mensagem: "Account does not exist"
+                message: "Account does not exist"
             })
         }
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })

@@ -45,7 +45,7 @@ const userLogin = async (req, res) => {
 
         if (findUser.length < 1) {
             return res.status(400).json({
-                mensagem: "Invalid email username and/or password."
+                message: "Invalid email username and/or password."
             })
         }
 
@@ -53,7 +53,7 @@ const userLogin = async (req, res) => {
 
         if (!validatePassword) {
             return res.status(400).json({
-                mensagem: "Invalid username and/or password."
+                message: "Invalid username and/or password."
             })
         }
 
@@ -73,6 +73,7 @@ const userLogin = async (req, res) => {
         return res.status(200).json(backUser)
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })

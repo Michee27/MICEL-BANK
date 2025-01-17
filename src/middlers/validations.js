@@ -25,6 +25,7 @@ const checkCPF = async (req, res, next) => {
         }
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })
@@ -44,6 +45,8 @@ const checkEmail = async (req, res, next) => {
         }
 
     } catch (error) {
+        console.log(error)
+
         return res.status(500).json({
             message: error.message
         })
@@ -82,6 +85,7 @@ const validateBalance = async (req, res, next) => {
         req.userBalance = userBalance
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })
@@ -99,6 +103,7 @@ const checkAccountStatus = async (req, res, next) => {
         }
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })
@@ -125,6 +130,7 @@ const checkId = async (req, res, next) => {
         }
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })

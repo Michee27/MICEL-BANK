@@ -28,6 +28,7 @@ const authenticateUser = async (req, res, next) => {
         req.foundUser = findId[0]
         next()
     } catch (error) {
+        console.log(error)
         return res.status(401).json({ message: "Not authorized" })
     }
 }

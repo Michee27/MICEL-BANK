@@ -1,5 +1,5 @@
 const express = require("express");
-const personalData = ["name", "cpf", "date_of_birth", "phone", "email", "password"]
+const personalData = ["fullName", "cpf", "birthDate", "phone", "email", "password"]
 const checkAmount = ["amount"]
 
 const {

@@ -12,18 +12,24 @@ const welcomePage = (req, res) => {
 }
 
 const registerAccount = async (req, res) => {
-    const { name, cpf, date_of_birth, phone, email, password } = req.body
+    const { fullName, cpf, birthDate, phone, email, password } = req.body
 
     try {
         const encrypt_password = await bcrypt.hash(password, 10)
 
         const register = await knex("usuario")
-            .insert({ name, cpf, date_of_birth, phone, email, encrypt_password })
+            .insert({
+                name: fullName,
+                cpf,
+                date_of_birth: birthDate,
+                phone,
+                email,
+                encrypt_password
+            }).returning('*')
 
-        return res.status(201).json({
-            message: "Account created successfully"
-        })
+        const backUser = await authenticateUser(register[0])
 
+        return res.status(201).json(backUser)
     } catch (error) {
         return res.status(500).json({
             message: error.message
@@ -35,21 +41,21 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body
 
     try {
-        const findUser = await knex("usuario").where("email", email)
+        const findUser = await knex("usuario").where("email", email).first()
 
-        if (findUser[0].ativo === false) {
+        if (findUser.ativo === false) {
             return res.status(400).json({
                 message: "User inactive"
             })
         }
 
-        if (findUser.length < 1) {
+        if (!findUser) {
             return res.status(400).json({
                 message: "Invalid email username and/or password."
             })
         }
 
-        const validatePassword = await bcrypt.compare(password, findUser[0].encrypt_password)
+        const validatePassword = await bcrypt.compare(password, findUser.encrypt_password)
 
         if (!validatePassword) {
             return res.status(400).json({
@@ -57,20 +63,32 @@ const userLogin = async (req, res) => {
             })
         }
 
+        const backUser = await authenticateUser(findUser)
+
+        return res.status(200).json(backUser)
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+
+const authenticateUser = async (user) => {
+    try {
         const token = jwt.sign({
-            id: findUser[0].id
+            id: user.id
         }, secretKey, { expiresIn: "24h" })
 
-        const backUser = {
+        return backUser = {
             user: {
-                id: findUser[0].id,
-                name: findUser[0].name,
-                email: findUser[0].email,
+                id: user.id,
+                name: user.name,
+                email: user.email,
             },
             token
         }
-
-        return res.status(200).json(backUser)
 
     } catch (error) {
         console.log(error)

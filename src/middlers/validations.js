@@ -14,13 +14,12 @@ const informations = (arrayData) => (req, res, next) => {
 
 const checkCPF = async (req, res, next) => {
     const { cpf } = req.body
-
     try {
         const validateCPF = await knex("usuario").where("cpf", cpf)
 
         if (validateCPF.length > 0) {
             return res.status(400).json({
-                mensagem: "An account already exists with the CPF entered!"
+                mesage: "An account already exists with the CPF entered!"
             })
         }
 
@@ -40,7 +39,7 @@ const checkEmail = async (req, res, next) => {
         const validateEmail = await knex("usuario").where("email", email)
         if (validateEmail.length > 0) {
             return res.status(400).json({
-                mensagem: "An account already exists with the email entered!"
+                message: "An account already exists with the email entered!"
             })
         }
 
@@ -119,7 +118,7 @@ const checkId = async (req, res, next) => {
 
         if (receiverId.length === 0) {
             return res.status(400).json({
-                mensagem: "Target account does not exist"
+                message: "Target account does not exist"
             })
         }
 

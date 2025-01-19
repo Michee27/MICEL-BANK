@@ -1,5 +1,6 @@
 const e = require("express")
 const knex = require("../config/connection")
+const { centavosToReais } = require("../utils/format")
 
 const informations = (arrayData) => (req, res, next) => {
     for (const item of arrayData) {
@@ -81,7 +82,9 @@ const validateBalance = async (req, res, next) => {
             .sum("balance as total_amount")
             .first()
 
-        req.userBalance = userBalance
+        console.log(centavosToReais(userBalance))
+
+        req.userBalance = centavosToReais(userBalance)
 
     } catch (error) {
         console.log(error)

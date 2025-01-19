@@ -2,6 +2,7 @@ const knex = require("../config/connection")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const secretKey = require("../config/secretKey")
+const { centavosToReais } = require("../utils/format")
 
 const welcomePage = (req, res) => {
     return res.status(200).json({
@@ -81,11 +82,17 @@ const authenticateUser = async (user) => {
             id: user.id
         }, secretKey, { expiresIn: "24h" })
 
+        const userBalance = await knex("saldo")
+            .where("user_id", user.id)
+            .sum("balance as total_amount")
+            .first()
+
         return backUser = {
             user: {
                 id: user.id,
                 name: user.name,
                 email: user.email,
+                balance: { total_amount: centavosToReais(userBalance.total_amount) }
             },
             token
         }

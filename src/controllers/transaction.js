@@ -1,4 +1,5 @@
 const knex = require("../config/connection")
+const { reaisToCentavos } = require("../utils/format")
 
 const deposit = async (req, res) => {
     const { amount } = req.body
@@ -6,13 +7,13 @@ const deposit = async (req, res) => {
     try {
         const insertDeposit = await knex("deposito")
             .insert({
-                "amount": amount,
+                "amount": reaisToCentavos(amount),
                 "account_id": req.foundUser.id
             }).returning(["id", "amount", "account_id", "transaction_date"])
 
-        const insertBalance = await knex("saldo")
+        await knex("saldo")
             .insert({
-                "balance": amount,
+                "balance": reaisToCentavos(amount),
                 "user_id": req.foundUser.id
             })
 
@@ -31,6 +32,7 @@ const deposit = async (req, res) => {
         return res.status(200).json(detail)
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: error.message
         })
@@ -127,18 +129,18 @@ const transfer = async (req, res) => {
     }
 }
 
-const detailBalance = async (req, res) => {
+// const detailBalance = async (req, res) => {
 
-    try {
+//     try {
 
-        return res.status(200).json(req.userBalance)
+//         return res.status(200).json(req.userBalance)
 
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message
-        })
-    }
-}
+//     } catch (error) {
+//         return res.status(500).json({
+//             message: error.message
+//         })
+//     }
+// }
 
 const accountStatement = async (req, res) => {
 
@@ -175,6 +177,6 @@ module.exports = {
     deposit,
     withdraw,
     transfer,
-    detailBalance,
+    // detailBalance,
     accountStatement
 }

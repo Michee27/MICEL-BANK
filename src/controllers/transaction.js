@@ -79,10 +79,17 @@ const withdraw = async (req, res) => {
 }
 
 const transfer = async (req, res) => {
-    const { amount, receiver_account_id } = req.body
+    const { amount } = req.body
 
     try {
-        if (amount > parseFloat(req.userBalance.total_amount)) {
+
+        if (req.receiver.id === req.foundUser.id) {
+            return res.status(400).json({
+                message: "You cannot make a transfer to yourself"
+            })
+        }
+
+        if (reaisToCentavos(amount) > req.userBalance) {
             return res.status(400).json({
                 message: "insufficient funds"
             })
@@ -90,28 +97,28 @@ const transfer = async (req, res) => {
 
         const sendTransfer = await knex("transferencia_enviada")
             .insert({
-                "amount": amount,
+                "amount": reaisToCentavos(amount),
                 "shipping_account_id": req.foundUser.id,
-                "receiver_account_id": receiver_account_id
+                "receiver_account_id": req.receiver.id
             }).returning("*")
 
-        const receiveTransfer = await knex("transferencia_recebida")
+        await knex("transferencia_recebida")
             .insert({
-                "amount": amount,
+                "amount": reaisToCentavos(amount),
                 "shipping_account_id": req.foundUser.id,
-                "receiver_account_id": receiver_account_id
+                "receiver_account_id": req.receiver.id
             }).returning("*")
 
-        const balanceUpdateShipper = await knex("saldo")
+        await knex("saldo")
             .insert({
-                "balance": -amount,
+                "balance": -reaisToCentavos(amount),
                 "user_id": req.foundUser.id
             })
 
-        const balanceUpdateReceiver = await knex("saldo")
+        await knex("saldo")
             .insert({
-                "balance": amount,
-                "user_id": receiver_account_id
+                "balance": reaisToCentavos(amount),
+                "user_id": req.receiver.id
             })
 
         const detail = {

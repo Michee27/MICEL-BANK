@@ -82,9 +82,7 @@ const validateBalance = async (req, res, next) => {
             .sum("balance as total_amount")
             .first()
 
-        console.log(centavosToReais(userBalance))
-
-        req.userBalance = centavosToReais(userBalance)
+        req.userBalance = Number(userBalance.total_amount)
 
     } catch (error) {
         console.log(error)
@@ -114,22 +112,31 @@ const checkAccountStatus = async (req, res, next) => {
 }
 
 const checkId = async (req, res, next) => {
-    const { receiver_account_id } = req.body
+    const { cpf, tipoPix, email } = req.body
 
     try {
-        const receiverId = await knex("usuario").where("id", receiver_account_id)
 
-        if (receiverId.length === 0) {
+        let receiver
+
+        if (tipoPix === 'CPF') {
+            receiver = await knex("usuario").where("cpf", cpf).first()
+        } else {
+            receiver = await knex("usuario").where("email", email).first()
+        }
+
+        if (!receiver) {
             return res.status(400).json({
                 message: "Target account does not exist"
             })
         }
 
-        if (receiverId.status === false) {
+        if (receiver.ativo === false) {
             return res.status(400).json({
                 message: "Target user disabled"
             })
         }
+
+        req.receiver = receiver
 
     } catch (error) {
         console.log(error)

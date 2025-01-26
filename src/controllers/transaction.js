@@ -1,5 +1,5 @@
 const knex = require("../config/connection")
-const { reaisToCentavos } = require("../utils/format")
+const { reaisToCentavos, centavosToReais } = require("../utils/format")
 
 const deposit = async (req, res) => {
     const { amount } = req.body
@@ -149,36 +149,62 @@ const transfer = async (req, res) => {
 //     }
 // }
 
+const transformStatement = (statement, key) => {
+    return statement.map(item => ({
+        ...item,
+        [key]: centavosToReais(item[key]),
+    }));
+};
+
+const attachUserToTransfers = async (transfers, userIdKey) => {
+    return Promise.all(
+        transfers.map(async transfer => {
+            const user = await knex("usuario")
+                .where({ id: transfer[userIdKey] })
+                .select("name", "email")
+                .first();
+            return {
+                ...transfer,
+                user,
+                amount: centavosToReais(transfer.amount),
+            };
+        })
+    );
+};
+
 const accountStatement = async (req, res) => {
-
     try {
+        const { id } = req.foundUser;
 
-        const withdrawalStatement = await knex("sacar")
-            .where("account_id", req.foundUser.id)
+        const [withdrawalStatement, depositStatement, transfersSent, receiveTransfer] = await Promise.all([
+            knex("sacar").where("account_id", id),
+            knex("deposito").where("account_id", id),
+            knex("transferencia_enviada").where("shipping_account_id", id),
+            knex("transferencia_recebida").where("receiver_account_id", id),
+        ]);
 
-        const depositStatement = await knex("deposito")
-            .where("account_id", req.foundUser.id)
+        const transformedWithdrawalStatement = transformStatement(withdrawalStatement, "amount");
+        const transformedDepositStatement = transformStatement(depositStatement, "amount");
 
-        const transfersSent = await knex("transferencia_enviada")
-            .where("shipping_account_id", req.foundUser.id)
+        const transformedTransfersSent = await attachUserToTransfers(transfersSent, "id");
+        const transformedReceiveTransfer = await attachUserToTransfers(receiveTransfer, "id");
+        const transformedWithdrawal = await attachUserToTransfers(transformedWithdrawalStatement, "id");
+        const transformedDeposit = await attachUserToTransfers(transformedDepositStatement, "account_id")
 
-        const receiveTransfer = await knex("transferencia_recebida")
-            .where("receiver_account_id", req.foundUser.id)
 
         return res.json({
-            withdrawalStatement,
-            depositStatement,
-            transfersSent,
-            receiveTransfer
-        })
-
+            withdrawalStatement: transformedWithdrawal,
+            depositStatement: transformedDeposit,
+            transfersSent: transformedTransfersSent,
+            receiveTransfer: transformedReceiveTransfer,
+        });
     } catch (error) {
         return res.status(500).json({
             message: error.message
         })
     }
+};
 
-}
 
 module.exports = {
     deposit,

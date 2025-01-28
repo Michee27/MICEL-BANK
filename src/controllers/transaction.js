@@ -179,12 +179,10 @@ const accountStatement = async (req, res) => {
             knex("transferencia_recebida").where("receiver_account_id", id),
         ]);
 
-
-        const transformedTransfersSent = await attachUsersToTransfers(transfersSent, "id");
-        const transformedReceiveTransfer = await attachUsersToTransfers(receiveTransfer, "id");
-        const transformedWithdrawalStatement = await attachUsersToTransfers(withdrawalStatement, "id");
-        const transformedDepositStatement = await attachUsersToTransfers(depositStatement, "id");
-
+        const transformedTransfersSent = await attachUsersToTransfers(transfersSent, "receiver_account_id");
+        const transformedReceiveTransfer = await attachUsersToTransfers(receiveTransfer, "shipping_account_id");
+        const transformedWithdrawalStatement = await attachUsersToTransfers(withdrawalStatement, "account_id");
+        const transformedDepositStatement = await attachUsersToTransfers(depositStatement, "account_id");
 
         return res.json({
             withdrawalStatement: transformedWithdrawalStatement,

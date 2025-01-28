@@ -149,27 +149,23 @@ const transfer = async (req, res) => {
 //     }
 // }
 
-const transformStatement = (statement, key) => {
-    return statement.map(item => ({
-        ...item,
-        [key]: centavosToReais(item[key]),
-    }));
-};
 
-const attachUserToTransfers = async (transfers, userIdKey) => {
-    return Promise.all(
-        transfers.map(async transfer => {
-            const user = await knex("usuario")
-                .where({ id: transfer[userIdKey] })
-                .select("name", "email")
-                .first();
-            return {
-                ...transfer,
-                user,
-                amount: centavosToReais(transfer.amount),
-            };
-        })
-    );
+const attachUsersToTransfers = async (transfers, userIdKey) => {
+    const userIds = transfers.map(transfer => transfer[userIdKey]);
+    const users = await knex("usuario")
+        .whereIn("id", userIds)
+        .select("id", "name", "email");
+
+    const userMap = users.reduce((map, user) => {
+        map[user.id] = user;
+        return map;
+    }, {});
+
+    return transfers.map(transfer => ({
+        ...transfer,
+        user: userMap[transfer[userIdKey]],
+        amount: centavosToReais(transfer.amount),
+    }));
 };
 
 const accountStatement = async (req, res) => {
@@ -183,27 +179,26 @@ const accountStatement = async (req, res) => {
             knex("transferencia_recebida").where("receiver_account_id", id),
         ]);
 
-        const transformedWithdrawalStatement = transformStatement(withdrawalStatement, "amount");
-        const transformedDepositStatement = transformStatement(depositStatement, "amount");
 
-        const transformedTransfersSent = await attachUserToTransfers(transfersSent, "id");
-        const transformedReceiveTransfer = await attachUserToTransfers(receiveTransfer, "id");
-        const transformedWithdrawal = await attachUserToTransfers(transformedWithdrawalStatement, "id");
-        const transformedDeposit = await attachUserToTransfers(transformedDepositStatement, "account_id")
+        const transformedTransfersSent = await attachUsersToTransfers(transfersSent, "id");
+        const transformedReceiveTransfer = await attachUsersToTransfers(receiveTransfer, "id");
+        const transformedWithdrawalStatement = await attachUsersToTransfers(withdrawalStatement, "id");
+        const transformedDepositStatement = await attachUsersToTransfers(depositStatement, "id");
 
 
         return res.json({
-            withdrawalStatement: transformedWithdrawal,
-            depositStatement: transformedDeposit,
+            withdrawalStatement: transformedWithdrawalStatement,
+            depositStatement: transformedDepositStatement,
             transfersSent: transformedTransfersSent,
             receiveTransfer: transformedReceiveTransfer,
         });
     } catch (error) {
         return res.status(500).json({
-            message: error.message
-        })
+            message: error.message,
+        });
     }
 };
+
 
 
 module.exports = {

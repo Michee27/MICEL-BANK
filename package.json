@@ -1,24 +1,27 @@
 {
-  "name": "micel-bank",
-  "version": "1.0.0",
-  "description": "Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon ./src/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2",
-    "knex": "^2.2.0",
-    "pg": "^8.11.3"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  }
+    "name": "micel-bank",
+    "version": "1.0.0",
+    "description": "Bem-vindo ao MICEL Bank! Este é prototipo de um projeto de um banco digital.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon ./src/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.2",
+        "knex": "^2.2.0",
+        "pg": "^8.11.3"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
 }
